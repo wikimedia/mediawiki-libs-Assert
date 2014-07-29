@@ -1,5 +1,5 @@
 {
-    "name":             "Wikimedia/Assert",
+    "name":             "wikimedia/assert",
     "description":      "Provides runtime assertions",
     "keywords":         ["PHP", "QA", "assert", "assertions", "precondition", "postcondition"],
     "homepage":         "https://github.com/wmde/Assert",

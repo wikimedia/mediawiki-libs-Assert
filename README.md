@@ -1,5 +1,7 @@
 This package provides an alternative to PHP's `assert()` that allows for an simple and reliable way
-to check preconditions and postconditions in PHP code.
+to check preconditions and postconditions in PHP code. It was proposed [as a MediaWiki RDF](https://www.mediawiki.org/wiki/Requests_for_comment/Assert),
+but is completely generic and can be used by any PHP program or library. It is published under the
+MIT license, see the COPYING file.
 
 The background of this proposal is the reoccurring discussions about whether PHP's `assert()`
 can and should be used in MediaWiki code. Two relevant threads:

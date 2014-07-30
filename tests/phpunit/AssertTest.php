@@ -1,8 +1,13 @@
 <?php
 namespace Wikimedia\Assert\Test;
 
+use LogicException;
 use PHPUnit_Framework_TestCase;
+use Symfony\Component\Yaml\Exception\RuntimeException;
 use Wikimedia\Assert\Assert;
+use Wikimedia\Assert\ParameterAssertionException;
+use Wikimedia\Assert\ParameterElementTypeException;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers Wikimedia\Assert\Assert
@@ -14,40 +19,126 @@ use Wikimedia\Assert\Assert;
 
 class AssertTest extends PHPUnit_Framework_TestCase {
 
-	public function testPrecondition_true() {
-		Assert::precondition( true, "test" );
+	public function testPrecondition_pass() {
+		Assert::precondition( true, 'test' );
 	}
 
-	public function testPrecondition_false() {
-		$this->setExpectedException( 'RuntimeException' );
-		Assert::precondition( false, "test" );
+	public function testPrecondition_fail() {
+		$this->setExpectedException( 'Wikimedia\Assert\PreconditionException' );
+		Assert::precondition( false, 'test' );
 	}
 
-	public function testArgument_true() {
-		Assert::argument( true, "foo", "test" );
+	public function testParameter_pass() {
+		Assert::parameter( true, 'foo', 'test' );
 	}
 
-	public function testArgument_false() {
-		$this->setExpectedException( 'InvalidArgumentException' );
-		Assert::argument( false, "foo", "test" );
+	public function testParameter_fail() {
+		try {
+			Assert::parameter( false, 'test', 'testing' );
+		} catch ( ParameterAssertionException $ex ) {
+			$this->assertEquals( 'test', $ex->getParameterName() );
+		}
 	}
 
-	public function testInvariant_true() {
-		Assert::invariant( true, "test" );
+	public function validParameterTypeProvider() {
+		return array(
+			'simple' => array( 'string', 'hello' ),
+			'class' => array( 'RuntimeException', new RuntimeException() ),
+			'multi' => array( 'string|array|Closure', function() {} ),
+			'null' => array( 'integer|null', null ),
+		);
 	}
 
-	public function testInvariant_false() {
-		$this->setExpectedException( 'LogicException' );
-		Assert::invariant( false, "test" );
+	/**
+	 * @dataProvider validParameterTypeProvider
+	 */
+	public function testParameterType_pass( $type, $value ) {
+		Assert::parameterType( $type, $value, 'test' );
 	}
 
-	public function testPostcondition_true() {
-		Assert::postcondition( true, "test" );
+
+	public function invalidParameterTypeProvider() {
+		return array(
+			'simple' => array( 'string', 5 ),
+			'class' => array( 'RuntimeException', new LogicException() ),
+			'multi' => array( 'string|integer|Closure', array() ),
+			'null' => array( 'integer|string', null ),
+		);
 	}
 
-	public function testPostcondition_false() {
-		$this->setExpectedException( 'LogicException' );
-		Assert::postcondition( false, "test" );
+	/**
+	 * @dataProvider invalidParameterTypeProvider
+	 */
+	public function testParameterType_fail( $type, $value ) {
+		try {
+			Assert::parameterType( $type, $value, 'test' );
+			$this->fail( 'Expected ParameterTypeException' );
+		} catch ( ParameterTypeException $ex ) {
+			$this->assertEquals( $type, $ex->getParameterType() );
+			$this->assertEquals( 'test', $ex->getParameterName() );
+		}
+	}
+
+	public function validParameterElementTypeProvider() {
+		return array(
+			'empty' => array( 'string', array() ),
+			'simple' => array( 'string', array( 'hello', 'world' ) ),
+			'class' => array( 'RuntimeException', array( new RuntimeException() ) ),
+			'multi' => array( 'string|array|Closure', array( array(), function() {} ) ),
+			'null' => array( 'integer|null', array( null, 3, null ) ),
+		);
+	}
+
+	/**
+	 * @dataProvider validParameterElementTypeProvider
+	 */
+	public function testParameterElementType_pass( $type, $value ) {
+		Assert::parameterElementType( $type, $value, 'test' );
+	}
+
+	public function invalidParameterElementTypeProvider() {
+		return array(
+			'simple' => array( 'string', array( 'hello', 5 ) ),
+			'class' => array( 'RuntimeException', array( new LogicException() ) ),
+			'multi' => array( 'string|array|Closure', array( array(), function() {}, 5 ) ),
+			'null' => array( 'integer|string', array( null, 3, null ) ),
+		);
+	}
+
+	/**
+	 * @dataProvider invalidParameterElementTypeProvider
+	 */
+	public function testParameterElementType_fail( $type, $value ) {
+		try {
+			Assert::parameterElementType( $type, $value, 'test' );
+			$this->fail( 'Expected ParameterElementTypeException' );
+		} catch ( ParameterElementTypeException $ex ) {
+			$this->assertEquals( $type, $ex->getElementType() );
+			$this->assertEquals( 'test', $ex->getParameterName() );
+		}
+	}
+
+	public function testParameterElementType_bad() {
+		$this->setExpectedException( 'Wikimedia\Assert\ParameterTypeException' );
+		Assert::parameterElementType( 'string', 'foo', 'test' );
+	}
+
+	public function testInvariant_pass() {
+		Assert::invariant( true, 'test' );
+	}
+
+	public function testInvariant_fail() {
+		$this->setExpectedException( 'Wikimedia\Assert\InvariantException' );
+		Assert::invariant( false, 'test' );
+	}
+
+	public function testPostcondition_pass() {
+		Assert::postcondition( true, 'test' );
+	}
+
+	public function testPostcondition_fail() {
+		$this->setExpectedException( 'Wikimedia\Assert\PostconditionException' );
+		Assert::postcondition( false, 'test' );
 	}
 
 }

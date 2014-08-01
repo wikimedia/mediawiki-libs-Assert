@@ -15,5 +15,5 @@ The outcome appears to be that
 Following a [suggestion by Tim Starling](http://www.gossamer-threads.com/lists/wiki/wikitech/378815#378815),
 this package provides an alternative to PHP's built in `assert()`.
 
-[![Build Status](https://secure.travis-ci.org/wmde/Assert.png)](https://travis-ci.org/wmde/Assert)
+[![Build Status](https://secure.travis-ci.org/wmde/Assert.svg)](https://travis-ci.org/wmde/Assert)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wmde/Assert/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wmde/Assert/?branch=master)

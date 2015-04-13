@@ -6,7 +6,7 @@ namespace Wikimedia\Assert;
  * Exception indicating that a parameter element type assertion failed.
  * This generally means a disagreement between the caller and the implementation of a function.
  *
- * @license GPL 2+
+ * @license MIT
  * @author Daniel Kinzler
  * @copyright Wikimedia Deutschland e.V.
  */

@@ -13,7 +13,7 @@ use LogicException;
  * @author Daniel Kinzler
  * @copyright Wikimedia Deutschland e.V.
  */
-class PostconditionException extends LogicException {
+class PostconditionException extends LogicException implements AssertionException {
 
 }
  

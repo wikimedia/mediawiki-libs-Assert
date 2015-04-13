@@ -12,7 +12,7 @@ use RuntimeException;
  * @author Daniel Kinzler
  * @copyright Wikimedia Deutschland e.V.
  */
-class PreconditionException extends RuntimeException {
+class PreconditionException extends RuntimeException implements AssertionException {
 
 }
  

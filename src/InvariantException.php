@@ -13,7 +13,7 @@ use LogicException;
  * @author Daniel Kinzler
  * @copyright Wikimedia Deutschland e.V.
  */
-class InvariantException extends LogicException {
+class InvariantException extends LogicException implements AssertionException {
 
 }
  

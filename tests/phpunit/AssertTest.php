@@ -5,6 +5,7 @@ use LogicException;
 use PHPUnit_Framework_TestCase;
 use Symfony\Component\Yaml\Exception\RuntimeException;
 use Wikimedia\Assert\Assert;
+use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\ParameterAssertionException;
 use Wikimedia\Assert\ParameterElementTypeException;
 use Wikimedia\Assert\ParameterTypeException;
@@ -76,6 +77,15 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		} catch ( ParameterTypeException $ex ) {
 			$this->assertEquals( $type, $ex->getParameterType() );
 			$this->assertEquals( 'test', $ex->getParameterName() );
+		}
+	}
+
+	public function testParameterType_catch() {
+		try {
+			Assert::parameterType( 'string', 17, 'test' );
+			$this->fail( 'Expected exception' );
+		} catch ( AssertionException $ex ) {
+			// ok
 		}
 	}
 

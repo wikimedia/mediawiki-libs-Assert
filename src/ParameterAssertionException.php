@@ -12,7 +12,7 @@ use InvalidArgumentException;
  * @author Daniel Kinzler
  * @copyright Wikimedia Deutschland e.V.
  */
-class ParameterAssertionException extends InvalidArgumentException {
+class ParameterAssertionException extends InvalidArgumentException implements AssertionException {
 
 	/**
 	 * @var string

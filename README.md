@@ -3,7 +3,31 @@ to check preconditions and postconditions in PHP code. It was proposed [as a Med
 but is completely generic and can be used by any PHP program or library. It is published under the
 MIT license, see the COPYING file.
 
-The background of this proposal is the reoccurring discussions about whether PHP's `assert()`
+Usage
+-------
+
+The Assert class provides several static methods for checking various kinds of assertions.
+The most common kind is to check the type of a parameter, typically in a constructor or a
+setter method:
+
+  function setFoo( $foo ) {
+      Assert::parameterType( 'integer', $foo, 'foo' );
+      Assert::parameter( $foo > 0, 'foo', 'must be greater than 0' );
+  }
+
+  function __construct( $bar, array $bazz ) {
+      Assert::parameterType( 'Me\MyApp\SomeClass', $bar );
+      Assert::parameterElementType( 'int', $bazz );
+  }
+
+Checking parameters, or other assertions such as pre- or postconditions, is not recommended for
+performance critical regions of the code, since evaluating expressions and calling the assertion
+functions costs time.
+
+
+Rationale
+-----------
+The background of this proposal is the recurring discussions about whether PHP's `assert()`
 can and should be used in MediaWiki code. Two relevant threads:
 * [Using PHP's assert in MediaWiki code](http://www.gossamer-threads.com/lists/wiki/wikitech/275737)
 * [Is assert() allowed?](http://www.gossamer-threads.com/lists/wiki/wikitech/378676)

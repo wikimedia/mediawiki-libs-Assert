@@ -1,12 +1,16 @@
 <?php
 namespace Wikimedia\Assert;
 
-use InvalidArgumentException;
-use LogicException;
-use RuntimeException;
-
 /**
- * Assert provides functions for assorting preconditions and postconditions.
+ * Assert provides functions for assorting preconditions (such as parameter types) and
+ * postconditions. It is intended as a safer alternative to PHP's assert() function.
+ *
+ * Note that assertions evaluate expressions and add function calls, so using assertions
+ * may have a negative impact on performance when used in performance hotspots. The idea
+ * if this class is to have a neat tool for assertions if and when they are needed.
+ * It is not recommended to place assertions all over the code indiscriminately.
+ *
+ * For more information, see the the README file.
  *
  * @license MIT
  * @author Daniel Kinzler
@@ -18,10 +22,20 @@ class Assert {
 	 * Checks a precondition, that is, throws a PreconditionException if $condition is false.
 	 * For checking call parameters, use Assert::parameter() instead.
 	 *
+	 * This is provided for completeness, most preconditions should be covered by
+	 * Assert::parameter() and related assertions.
+	 *
+	 * @see parameter()
+	 *
+	 * @note This is intended mostly for checking preconditions in constructors and setters,
+	 * or before using parameters in complex computations.
+	 * Checking preconditions in every function call is not recommended, since it may have a
+	 * negative impact on performance.
+	 *
 	 * @param bool $condition
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
-	 * @throws RuntimeException
+	 * @throws PreconditionException if $condition is not true.
 	 */
 	public static function precondition( $condition, $description ) {
 		if ( !$condition ) {
@@ -33,11 +47,15 @@ class Assert {
 	 * Checks a parameter, that is, throws a ParameterAssertionException if $condition is false.
 	 * This is similar to Assert::precondition().
 	 *
+	 * @note This is intended for checking parameters in constructors and setters.
+	 * Checking parameters in every function call is not recommended, since it may have a
+	 * negative impact on performance.
+	 *
 	 * @param bool $condition
 	 * @param string $argname The name of the parameter that was checked.
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws ParameterAssertionException if $condition is not true.
 	 */
 	public static function parameter( $condition, $argname, $description ) {
 		if ( !$condition ) {
@@ -49,13 +67,21 @@ class Assert {
 	 * Checks an parameter's type, that is, throws a InvalidArgumentException if $condition is false.
 	 * This is really a special case of Assert::precondition().
 	 *
+	 * @note This is intended for checking parameters in constructors and setters.
+	 * Checking parameters in every function call is not recommended, since it may have a
+	 * negative impact on performance.
+	 *
+	 * @note If possible, type hints should be used instead of calling this function.
+	 * It is intended for cases where type hints to not work, e.g. for checking primitive types.
+	 *
 	 * @param string $type The parameter's expected type. Can be the name of a native type or a
 	 *        class or interface. If multiple types are allowed, they can be given separated by
 	 *        a pipe character ("|").
 	 * @param mixed $value The parameter's actual value.
 	 * @param string $argname The name of the parameter that was checked.
 	 *
-	 * @throws ParameterTypeException
+	 * @throws ParameterTypeException if $value is not of type (or, for objects, is not an
+	 *         instance of) $type.
 	 */
 	public static function parameterType( $type, $value, $argname ) {
 		if ( !self::hasType( $value, explode( '|', $type ) ) ) {
@@ -64,17 +90,23 @@ class Assert {
 	}
 
 	/**
-	 * Checks the type of all elements of an parameter, assuming the parameter is an array, 
+	 * Checks the type of all elements of an parameter, assuming the parameter is an array,
 	 * that is, throws a ParameterElementTypeException if $value
+	 *
+	 * @note This is intended for checking parameters in constructors and setters.
+	 * Checking parameters in every function call is not recommended, since it may have a
+	 * negative impact on performance.
 	 *
 	 * @param string $type The elements' expected type. Can be the name of a native type or a
 	 *        class or interface. If multiple types are allowed, they can be given separated by
 	 *        a pipe character ("|").
-	 * @param mixed $value The parameter's actual value.
+	 * @param mixed $value The parameter's actual value. If this is not an array,
+	 *        a ParameterTypeException is raised.
 	 * @param string $argname The name of the parameter that was checked.
 	 *
-	 * @throws ParameterTypeException If the parameter is not an array.
-	 * @throws ParameterElementTypeException If an element has the wrong type
+	 * @throws ParameterTypeException If $value is not an array.
+	 * @throws ParameterElementTypeException If an element of $value  is not of type
+	 *         (or, for objects, is not an instance of) $type.
 	 */
 	public static function parameterElementType( $type, $value, $argname ) {
 		$allowedTypes = explode( '|', $type );
@@ -90,12 +122,17 @@ class Assert {
 
 	/**
 	 * Checks a postcondition, that is, throws a PostconditionException if $condition is false.
-	 * This is very similar Assert::invariant() but is intended for use only after a computation is complete.
+	 * This is very similar Assert::invariant() but is intended for use only after a computation
+	 * is complete.
+	 *
+	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
+	 * Note however that it should not be used in performance hotspots, since evaluating
+	 * $condition and calling postcondition() costs time.
 	 *
 	 * @param bool $condition
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
-	 * @throws LogicException
+	 * @throws PostconditionException
 	 */
 	public static function postcondition( $condition, $description ) {
 		if ( !$condition ) {
@@ -107,10 +144,14 @@ class Assert {
 	 * Checks an invariant, that is, throws a InvariantException if $condition is false.
 	 * This is very similar Assert::postcondition() but is intended for use throughout the code.
 	 *
+	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
+	 * Note however that it should not be used in performance hotspots, since evaluating
+	 * $condition and calling postcondition() costs time.
+	 *
 	 * @param bool $condition
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
-	 * @throws LogicException
+	 * @throws InvariantException
 	 */
 	public static function invariant( $condition, $description ) {
 		if ( !$condition ) {

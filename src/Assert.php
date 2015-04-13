@@ -1,4 +1,5 @@
 <?php
+
 namespace Wikimedia\Assert;
 
 /**
@@ -52,14 +53,14 @@ class Assert {
 	 * negative impact on performance.
 	 *
 	 * @param bool $condition
-	 * @param string $argname The name of the parameter that was checked.
+	 * @param string $name The name of the parameter that was checked.
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
 	 * @throws ParameterAssertionException if $condition is not true.
 	 */
-	public static function parameter( $condition, $argname, $description ) {
+	public static function parameter( $condition, $name, $description ) {
 		if ( !$condition ) {
-			throw new ParameterAssertionException( $argname, $description );
+			throw new ParameterAssertionException( $name, $description );
 		}
 	}
 
@@ -78,14 +79,14 @@ class Assert {
 	 *        class or interface. If multiple types are allowed, they can be given separated by
 	 *        a pipe character ("|").
 	 * @param mixed $value The parameter's actual value.
-	 * @param string $argname The name of the parameter that was checked.
+	 * @param string $name The name of the parameter that was checked.
 	 *
 	 * @throws ParameterTypeException if $value is not of type (or, for objects, is not an
 	 *         instance of) $type.
 	 */
-	public static function parameterType( $type, $value, $argname ) {
+	public static function parameterType( $type, $value, $name ) {
 		if ( !self::hasType( $value, explode( '|', $type ) ) ) {
-			throw new ParameterTypeException( $argname, $type );
+			throw new ParameterTypeException( $name, $type );
 		}
 	}
 
@@ -102,20 +103,20 @@ class Assert {
 	 *        a pipe character ("|").
 	 * @param mixed $value The parameter's actual value. If this is not an array,
 	 *        a ParameterTypeException is raised.
-	 * @param string $argname The name of the parameter that was checked.
+	 * @param string $name The name of the parameter that was checked.
 	 *
 	 * @throws ParameterTypeException If $value is not an array.
 	 * @throws ParameterElementTypeException If an element of $value  is not of type
 	 *         (or, for objects, is not an instance of) $type.
 	 */
-	public static function parameterElementType( $type, $value, $argname ) {
-		$allowedTypes = explode( '|', $type );
+	public static function parameterElementType( $type, $value, $name ) {
+		self::parameterType( 'array', $value, $name );
 
-		self::parameterType( 'array', $value, $argname );
+		$allowedTypes = explode( '|', $type );
 
 		foreach ( $value as $element ) {
 			if ( !self::hasType( $element, $allowedTypes ) ) {
-				throw new ParameterElementTypeException( $argname, $type );
+				throw new ParameterElementTypeException( $name, $type );
 			}
 		}
 	}
@@ -166,6 +167,7 @@ class Assert {
 	 * @return bool
 	 */
 	private static function hasType( $value, array $allowedTypes ) {
+		// Apply strtolower because gettype returns "NULL" for null values.
 		$type = strtolower( gettype( $value ) );
 
 		if ( in_array( $type, $allowedTypes ) ) {
@@ -198,4 +200,5 @@ class Assert {
 
 		return false;
 	}
+
 }

@@ -16,4 +16,3 @@ use LogicException;
 class InvariantException extends LogicException implements AssertionException {
 
 }
- 

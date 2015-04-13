@@ -172,6 +172,10 @@ class Assert {
 			return true;
 		}
 
+		if ( is_callable( $value ) && in_array( 'callable', $allowedTypes ) ) {
+			return true;
+		}
+
 		if ( is_object( $value ) && self::isInstanceOf( $value, $allowedTypes ) ) {
 			return true;
 		}

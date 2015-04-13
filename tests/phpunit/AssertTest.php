@@ -47,6 +47,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'class' => array( 'RuntimeException', new RuntimeException() ),
 			'multi' => array( 'string|array|Closure', function() {} ),
 			'null' => array( 'integer|null', null ),
+			'callable' => array( 'null|callable', 'time' ),
 		);
 	}
 
@@ -57,13 +58,13 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::parameterType( $type, $value, 'test' );
 	}
 
-
 	public function invalidParameterTypeProvider() {
 		return array(
 			'simple' => array( 'string', 5 ),
 			'class' => array( 'RuntimeException', new LogicException() ),
 			'multi' => array( 'string|integer|Closure', array() ),
 			'null' => array( 'integer|string', null ),
+			'callable' => array( 'null|callable', array() ),
 		);
 	}
 

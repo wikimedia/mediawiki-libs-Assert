@@ -3,7 +3,7 @@ namespace Wikimedia\Assert\Test;
 
 use LogicException;
 use PHPUnit_Framework_TestCase;
-use Symfony\Component\Yaml\Exception\RuntimeException;
+use RuntimeException;
 use Wikimedia\Assert\Assert;
 use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\ParameterAssertionException;

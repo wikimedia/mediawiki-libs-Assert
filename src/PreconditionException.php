@@ -15,4 +15,3 @@ use RuntimeException;
 class PreconditionException extends RuntimeException implements AssertionException {
 
 }
- 

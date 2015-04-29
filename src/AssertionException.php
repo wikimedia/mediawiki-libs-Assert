@@ -14,4 +14,3 @@ namespace Wikimedia\Assert;
 interface AssertionException {
 
 }
- 

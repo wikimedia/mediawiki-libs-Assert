@@ -21,7 +21,7 @@ class ParameterAssertionException extends InvalidArgumentException implements As
 
 	/**
 	 * @param string $parameterName
-	 * @param int $description
+	 * @param string $description
 	 *
 	 * @throws ParameterTypeException
 	 */
@@ -30,7 +30,7 @@ class ParameterAssertionException extends InvalidArgumentException implements As
 			throw new ParameterTypeException( 'parameterName', 'string' );
 		}
 
-		if ( !is_string( $parameterName ) ) {
+		if ( !is_string( $description ) ) {
 			throw new ParameterTypeException( 'description', 'string' );
 		}
 
@@ -47,4 +47,3 @@ class ParameterAssertionException extends InvalidArgumentException implements As
 	}
 
 }
- 

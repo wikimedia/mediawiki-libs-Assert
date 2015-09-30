@@ -1,3 +1,6 @@
+[![Build Status](https://secure.travis-ci.org/wmde/Assert.svg)](https://travis-ci.org/wmde/Assert)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wmde/Assert/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wmde/Assert/?branch=master)
+
 This package provides an alternative to PHP's `assert()` that allows for an simple and reliable way
 to check preconditions and postconditions in PHP code. It was proposed [as a MediaWiki RFC](https://www.mediawiki.org/wiki/Requests_for_comment/Assert),
 but is completely generic and can be used by any PHP program or library. It is published under the
@@ -14,7 +17,7 @@ setter method:
         Assert::parameterType( 'integer', $foo, 'foo' );
         Assert::parameter( $foo > 0, 'foo', 'must be greater than 0' );
     }
-    
+
     function __construct( $bar, array $bazz ) {
         Assert::parameterType( 'Me\MyApp\SomeClass', $bar );
         Assert::parameterElementType( 'int', $bazz );
@@ -38,6 +41,3 @@ The outcome appears to be that
 
 Following a [suggestion by Tim Starling](http://www.gossamer-threads.com/lists/wiki/wikitech/378815#378815),
 this package provides an alternative to PHP's built in `assert()`.
-
-[![Build Status](https://secure.travis-ci.org/wmde/Assert.svg)](https://travis-ci.org/wmde/Assert)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wmde/Assert/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wmde/Assert/?branch=master)

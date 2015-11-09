@@ -6,3 +6,7 @@ php:
   - "hhvm"
 install:
   - composer install
+
+cache:
+  directories:
+    - $HOME/.composer/cache

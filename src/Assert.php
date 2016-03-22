@@ -174,7 +174,7 @@ class Assert {
 			return true;
 		}
 
-		if ( is_callable( $value ) && in_array( 'callable', $allowedTypes ) ) {
+		if ( in_array( 'callable', $allowedTypes ) && is_callable( $value ) ) {
 			return true;
 		}
 

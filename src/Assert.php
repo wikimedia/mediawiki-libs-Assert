@@ -162,7 +162,7 @@ class Assert {
 
 	/**
 	 * @param mixed $value
-	 * @param array $allowedTypes
+	 * @param string[] $allowedTypes
 	 *
 	 * @return bool
 	 */
@@ -187,7 +187,7 @@ class Assert {
 
 	/**
 	 * @param mixed $value
-	 * @param array $allowedTypes
+	 * @param string[] $allowedTypes
 	 *
 	 * @return bool
 	 */

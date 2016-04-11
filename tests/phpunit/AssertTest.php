@@ -2,11 +2,12 @@
 
 namespace Wikimedia\Assert\Test;
 
+use ArrayObject;
 use LogicException;
 use PHPUnit_Framework_TestCase;
 use RuntimeException;
+use stdClass;
 use Wikimedia\Assert\Assert;
-use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\ParameterAssertionException;
 use Wikimedia\Assert\ParameterElementTypeException;
 use Wikimedia\Assert\ParameterTypeException;
@@ -16,9 +17,9 @@ use Wikimedia\Assert\ParameterTypeException;
  *
  * @license MIT
  * @author Daniel Kinzler
+ * @author Thiemo Mättig
  * @copyright Wikimedia Deutschland e.V.
  */
-
 class AssertTest extends PHPUnit_Framework_TestCase {
 
 	public function testPrecondition_pass() {
@@ -45,10 +46,23 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	public function validParameterTypeProvider() {
 		return array(
 			'simple' => array( 'string', 'hello' ),
+			'boolean' => array( 'boolean', true ),
+			'integer' => array( 'integer', 1 ),
+			'double' => array( 'double', 1.0 ),
+			'object' => array( 'object', new stdClass() ),
 			'class' => array( 'RuntimeException', new RuntimeException() ),
+			'subclass' => array( 'Exception', new RuntimeException() ),
+			'stdClass' => array( 'stdClass', new stdClass() ),
 			'multi' => array( 'string|array|Closure', function() {} ),
 			'null' => array( 'integer|null', null ),
+
 			'callable' => array( 'null|callable', 'time' ),
+			'static callable' => array( 'callable', 'Wikimedia\Assert\Assert::parameterType' ),
+			'callable array' => array( 'callable', array( 'Wikimedia\Assert\Assert', 'parameterType' ) ),
+			'callable $this' => array( 'callable', array( $this, 'validParameterTypeProvider' ) ),
+			'Closure is callable' => array( 'callable', function() {} ),
+
+			'Traversable' => array( 'Traversable', new ArrayObject() ),
 		);
 	}
 
@@ -61,11 +75,29 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 
 	public function invalidParameterTypeProvider() {
 		return array(
+			'bool shortcut is not accepted' => array( 'bool', true ),
+			'int shortcut is not accepted' => array( 'int', 1 ),
+			'float alias is not accepted' => array( 'float', 1.0 ),
+			'callback alias is not accepted' => array( 'callback', 'time' ),
+
 			'simple' => array( 'string', 5 ),
+			'integer is not boolean' => array( 'boolean', 1 ),
+			'string is not boolean' => array( 'boolean', '0' ),
+			'boolean is not integer' => array( 'integer', true ),
+			'string is not integer' => array( 'integer', '0' ),
+			'double is not integer' => array( 'integer', 1.0 ),
+			'integer is not double' => array( 'double', 1 ),
 			'class' => array( 'RuntimeException', new LogicException() ),
+			'stdClass is no superclass' => array( 'stdClass', new LogicException() ),
 			'multi' => array( 'string|integer|Closure', array() ),
 			'null' => array( 'integer|string', null ),
+
 			'callable' => array( 'null|callable', array() ),
+			'callable is no Closure' => array( 'Closure', 'time' ),
+			'object is not callable' => array( 'callable', new stdClass() ),
+
+			'object is not Traversable' => array( 'Traversable', new stdClass() ),
+			'Traversable is not Iterator' => array( 'Iterator', new ArrayObject() ),
 		);
 	}
 
@@ -83,12 +115,8 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testParameterType_catch() {
-		try {
-			Assert::parameterType( 'string', 17, 'test' );
-			$this->fail( 'Expected exception' );
-		} catch ( AssertionException $ex ) {
-			// ok
-		}
+		$this->setExpectedException( 'Wikimedia\Assert\AssertionException' );
+		Assert::parameterType( 'string', 17, 'test' );
 	}
 
 	public function validParameterElementTypeProvider() {

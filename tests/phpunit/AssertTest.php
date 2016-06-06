@@ -53,14 +53,16 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'class' => array( 'RuntimeException', new RuntimeException() ),
 			'subclass' => array( 'Exception', new RuntimeException() ),
 			'stdClass' => array( 'stdClass', new stdClass() ),
-			'multi' => array( 'string|array|Closure', function() {} ),
+			'multi' => array( 'string|array|Closure', function() {
+			} ),
 			'null' => array( 'integer|null', null ),
 
 			'callable' => array( 'null|callable', 'time' ),
 			'static callable' => array( 'callable', 'Wikimedia\Assert\Assert::parameterType' ),
 			'callable array' => array( 'callable', array( 'Wikimedia\Assert\Assert', 'parameterType' ) ),
 			'callable $this' => array( 'callable', array( $this, 'validParameterTypeProvider' ) ),
-			'Closure is callable' => array( 'callable', function() {} ),
+			'Closure is callable' => array( 'callable', function() {
+			} ),
 
 			'Traversable' => array( 'Traversable', new ArrayObject() ),
 		);
@@ -124,7 +126,8 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'empty' => array( 'string', array() ),
 			'simple' => array( 'string', array( 'hello', 'world' ) ),
 			'class' => array( 'RuntimeException', array( new RuntimeException() ) ),
-			'multi' => array( 'string|array|Closure', array( array(), function() {} ) ),
+			'multi' => array( 'string|array|Closure', array( array(), function() {
+			} ) ),
 			'null' => array( 'integer|null', array( null, 3, null ) ),
 		);
 	}
@@ -140,7 +143,8 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		return array(
 			'simple' => array( 'string', array( 'hello', 5 ) ),
 			'class' => array( 'RuntimeException', array( new LogicException() ) ),
-			'multi' => array( 'string|array|Closure', array( array(), function() {}, 5 ) ),
+			'multi' => array( 'string|array|Closure', array( array(), function() {
+			}, 5 ) ),
 			'null' => array( 'integer|string', array( null, 3, null ) ),
 		);
 	}

@@ -20,15 +20,17 @@ class ParameterTypeException extends ParameterAssertionException {
 	/**
 	 * @param string $parameterName
 	 * @param string $parameterType
+	 * @param mixed $parameterValue
 	 *
 	 * @throws ParameterTypeException
 	 */
-	public function __construct( $parameterName, $parameterType ) {
+	public function __construct( $parameterName, $parameterType, $parameterValue ) {
 		if ( !is_string( $parameterType ) ) {
-			throw new ParameterTypeException( 'parameterType', 'string' );
+			throw new ParameterTypeException( 'parameterType', 'string', $parameterType );
 		}
 
-		parent::__construct( $parameterName, "must be a $parameterType" );
+		$export = var_export( $parameterValue, true );
+		parent::__construct( $parameterName, "must be a $parameterType, got $export instead" );
 
 		$this->parameterType = $parameterType;
 	}

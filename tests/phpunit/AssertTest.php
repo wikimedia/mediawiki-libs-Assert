@@ -115,7 +115,10 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testParameterType_catch() {
-		$this->setExpectedException( 'Wikimedia\Assert\AssertionException' );
+		$this->setExpectedException(
+			'Wikimedia\Assert\AssertionException',
+			'Bad value for parameter test: must be a string, got 17 instead'
+		);
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 

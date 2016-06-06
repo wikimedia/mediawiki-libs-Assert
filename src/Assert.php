@@ -86,7 +86,7 @@ class Assert {
 	 */
 	public static function parameterType( $type, $value, $name ) {
 		if ( !self::hasType( $value, explode( '|', $type ) ) ) {
-			throw new ParameterTypeException( $name, $type );
+			throw new ParameterTypeException( $name, $type, $value );
 		}
 	}
 

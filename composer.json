@@ -20,5 +20,8 @@
 			"Wikimedia\\Assert\\": "src/",
 			"Wikimedia\\Assert\\Test\\": "tests/phpunit/"
 		}
+	},
+	"scripts": {
+		"test": "phpunit"
 	}
 }

@@ -15,6 +15,7 @@ namespace Wikimedia\Assert;
  *
  * @license MIT
  * @author Daniel Kinzler
+ * @author Thiemo Mättig
  * @copyright Wikimedia Deutschland e.V.
  */
 class Assert {
@@ -118,6 +119,18 @@ class Assert {
 			if ( !self::hasType( $element, $allowedTypes ) ) {
 				throw new ParameterElementTypeException( $name, $type );
 			}
+		}
+	}
+
+	/**
+	 * @param string $value
+	 * @param string $name
+	 *
+	 * @throws ParameterTypeException if $value is not a non-empty string.
+	 */
+	public static function nonEmptyString( $value, $name ) {
+		if ( !is_string( $value ) || $value === '' ) {
+			throw new ParameterTypeException( $name, 'non-empty string' );
 		}
 	}
 

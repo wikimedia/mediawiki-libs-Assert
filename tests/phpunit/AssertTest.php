@@ -167,6 +167,44 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::parameterElementType( 'string', 'foo', 'test' );
 	}
 
+	function validNonEmptyStringProvider() {
+		return array(
+			array( '0' ),
+			array( '0.0' ),
+			array( ' ' ),
+			array( "\n" ),
+			array( 'test' ),
+		);
+	}
+
+	/**
+	 * @dataProvider validNonEmptyStringProvider
+	 */
+	public function testNonEmptyString_pass( $value ) {
+		Assert::nonEmptyString( $value, 'test' );
+	}
+
+	function invalidNonEmptyStringProvider() {
+		return array(
+			array( null ),
+			array( false ),
+			array( 0 ),
+			array( 0.0 ),
+			array( '' ),
+		);
+	}
+
+	/**
+	 * @dataProvider invalidNonEmptyStringProvider
+	 */
+	public function testNonEmptyString_fail( $value ) {
+		$this->setExpectedException(
+			'Wikimedia\Assert\ParameterTypeException',
+			'Bad value for parameter test: must be a non-empty string'
+		);
+		Assert::nonEmptyString( $value, 'test' );
+	}
+
 	public function testInvariant_pass() {
 		Assert::invariant( true, 'test' );
 	}

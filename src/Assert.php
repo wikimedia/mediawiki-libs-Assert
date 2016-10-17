@@ -15,6 +15,7 @@ namespace Wikimedia\Assert;
  *
  * @license MIT
  * @author Daniel Kinzler
+ * @author Thiemo Mättig
  * @copyright Wikimedia Deutschland e.V.
  */
 class Assert {
@@ -179,6 +180,10 @@ class Assert {
 		}
 
 		if ( is_object( $value ) && self::isInstanceOf( $value, $allowedTypes ) ) {
+			return true;
+		}
+
+		if ( is_array( $value ) && in_array( 'Traversable', $allowedTypes ) ) {
 			return true;
 		}
 

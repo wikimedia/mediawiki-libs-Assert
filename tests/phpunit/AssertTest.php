@@ -65,6 +65,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			} ),
 
 			'Traversable' => array( 'Traversable', new ArrayObject() ),
+			'Traversable array' => array( 'Traversable', array() ),
 		);
 	}
 

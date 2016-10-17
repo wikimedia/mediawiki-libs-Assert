@@ -38,8 +38,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	public function testParameter_fail() {
 		try {
 			Assert::parameter( false, 'test', 'testing' );
+			$this->fail( 'Expected ParameterAssertionException' );
 		} catch ( ParameterAssertionException $ex ) {
-			$this->assertEquals( 'test', $ex->getParameterName() );
+			$this->assertSame( 'test', $ex->getParameterName() );
 		}
 	}
 
@@ -111,8 +112,8 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			Assert::parameterType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterTypeException' );
 		} catch ( ParameterTypeException $ex ) {
-			$this->assertEquals( $type, $ex->getParameterType() );
-			$this->assertEquals( 'test', $ex->getParameterName() );
+			$this->assertSame( $type, $ex->getParameterType() );
+			$this->assertSame( 'test', $ex->getParameterName() );
 		}
 	}
 
@@ -157,8 +158,8 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			Assert::parameterElementType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterElementTypeException' );
 		} catch ( ParameterElementTypeException $ex ) {
-			$this->assertEquals( $type, $ex->getElementType() );
-			$this->assertEquals( 'test', $ex->getParameterName() );
+			$this->assertSame( $type, $ex->getElementType() );
+			$this->assertSame( 'test', $ex->getParameterName() );
 		}
 	}
 

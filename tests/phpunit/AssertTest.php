@@ -121,6 +121,57 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 
+	public function validParameterKeyTypeProvider() {
+		return array(
+			array( 'integer', array() ),
+			array( 'integer', array( 1 ) ),
+			array( 'integer', array( 1 => 1 ) ),
+			array( 'integer', array( 1.0 => 1 ) ),
+			array( 'integer', array( '0' => 1 ) ),
+			array( 'integer', array( false => 1 ) ),
+			array( 'string', array() ),
+			array( 'string', array( '' => 1 ) ),
+			array( 'string', array( '0.0' => 1 ) ),
+			array( 'string', array( 'string' => 1 ) ),
+			array( 'string', array( null => 1 ) ),
+		);
+	}
+
+	/**
+	 * @dataProvider validParameterKeyTypeProvider
+	 */
+	public function testParameterKeyType_pass( $type, $value ) {
+		Assert::parameterKeyType( $type, $value, 'test' );
+	}
+
+	public function invalidParameterKeyTypeProvider() {
+		return array(
+			array( 'integer', array( 0, 'string' => 1 ) ),
+			array( 'integer', array( 'string' => 0, 1 ) ),
+			array( 'string', array( 0, 'string' => 1 ) ),
+			array( 'string', array( 'string' => 0, 1 ) ),
+		);
+	}
+
+	/**
+	 * @dataProvider invalidParameterKeyTypeProvider
+	 */
+	public function testParameterKeyType_fail( $type, $value ) {
+		$this->setExpectedException(
+			'Wikimedia\Assert\ParameterKeyTypeException',
+			'Bad value for parameter test: all elements must have '
+		);
+		Assert::parameterKeyType( $type, $value, 'test' );
+	}
+
+	public function testGivenUnsupportedType_ParameterKeyTypeFails() {
+		$this->setExpectedException(
+			'Wikimedia\Assert\ParameterAssertionException',
+			'Bad value for parameter type: must be "integer" or "string"'
+		);
+		Assert::parameterKeyType( 'integer|string', array(), 'test' );
+	}
+
 	public function validParameterElementTypeProvider() {
 		return array(
 			'empty' => array( 'string', array() ),

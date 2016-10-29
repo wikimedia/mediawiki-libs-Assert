@@ -101,7 +101,7 @@ class Assert {
 	 * @param string $type The elements' expected type. Can be the name of a native type or a
 	 *        class or interface. If multiple types are allowed, they can be given separated by
 	 *        a pipe character ("|").
-	 * @param mixed $value The parameter's actual value. If this is not an array,
+	 * @param array $value The parameter's actual value. If this is not an array,
 	 *        a ParameterTypeException is raised.
 	 * @param string $name The name of the parameter that was checked.
 	 *
@@ -186,7 +186,7 @@ class Assert {
 	}
 
 	/**
-	 * @param mixed $value
+	 * @param object $value
 	 * @param string[] $allowedTypes
 	 *
 	 * @return bool

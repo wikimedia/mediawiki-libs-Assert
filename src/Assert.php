@@ -92,6 +92,29 @@ class Assert {
 	}
 
 	/**
+	 * @param string $type Either "integer" or "string". Mixing "integer|string" is not supported
+	 *  because this is PHP's default anyway. It is of no value to check this.
+	 * @param array $value The parameter's actual value. If this is not an array, a
+	 *  ParameterTypeException is raised.
+	 * @param string $name The name of the parameter that was checked.
+	 *
+	 * @throws ParameterTypeException if one of the keys in the array $value is not of type $type.
+	 */
+	public static function parameterKeyType( $type, $value, $name ) {
+		self::parameterType( 'array', $value, $name );
+
+		if ( $type !== 'integer' && $type !== 'string' ) {
+			throw new ParameterAssertionException( 'type', 'must be "integer" or "string"' );
+		}
+
+		foreach ( $value as $key => $element ) {
+			if ( gettype( $key ) !== $type ) {
+				throw new ParameterKeyTypeException( $name, $type );
+			}
+		}
+	}
+
+	/**
 	 * Checks the type of all elements of an parameter, assuming the parameter is an array,
 	 * that is, throws a ParameterElementTypeException if $value
 	 *

@@ -6,6 +6,8 @@ namespace Wikimedia\Assert;
  * Exception indicating that a parameter key type assertion failed.
  * This generally means a disagreement between the caller and the implementation of a function.
  *
+ * @since 0.3.0
+ *
  * @license MIT
  * @author Daniel Kinzler
  * @author Thiemo Mättig

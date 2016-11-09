@@ -6,7 +6,8 @@
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Daniel Kinzler"
+			"name": "Daniel Kinzler",
+			"name": "Thiemo Mättig"
 		}
 	],
 	"require": {

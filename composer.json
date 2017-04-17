@@ -2,26 +2,32 @@
 	"name": "wikimedia/assert",
 	"description": "Provides runtime assertions",
 	"keywords": ["PHP", "QA", "assert", "assertions", "precondition", "postcondition"],
-	"homepage": "https://github.com/wmde/Assert",
+	"homepage": "https://github.com/wikimedia/Assert",
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Daniel Kinzler",
+			"name": "Daniel Kinzler"
+		},
+		{
 			"name": "Thiemo Mättig"
 		}
 	],
+	"autoload": {
+		"psr-4": {
+			"Wikimedia\\Assert\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Wikimedia\\Assert\\Test\\": "tests/phpunit/"
+		}
+	},
 	"require": {
 		"php": ">=5.3.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "0.5.1",
-		"phpunit/phpunit": "3.7.*"
-	},
-	"autoload": {
-		"psr-4": {
-			"Wikimedia\\Assert\\": "src/",
-			"Wikimedia\\Assert\\Test\\": "tests/phpunit/"
-		}
+		"phpunit/phpunit": "^4.8"
 	},
 	"scripts": {
 		"test": [

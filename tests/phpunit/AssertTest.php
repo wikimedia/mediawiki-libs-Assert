@@ -26,6 +26,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::precondition( true, 'test' );
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\PreconditionException
+	 */
 	public function testPrecondition_fail() {
 		$this->setExpectedException( 'Wikimedia\Assert\PreconditionException' );
 		Assert::precondition( false, 'test' );
@@ -35,6 +38,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::parameter( true, 'foo', 'test' );
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\ParameterAssertionException
+	 */
 	public function testParameter_fail() {
 		try {
 			Assert::parameter( false, 'test', 'testing' );
@@ -107,6 +113,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider invalidParameterTypeProvider
+	 * @covers Wikimedia\Assert\ParameterTypeException
 	 */
 	public function testParameterType_fail( $type, $value ) {
 		try {
@@ -118,6 +125,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\AssertionException
+	 */
 	public function testParameterType_catch() {
 		$this->setExpectedException( 'Wikimedia\Assert\AssertionException' );
 		Assert::parameterType( 'string', 17, 'test' );
@@ -157,6 +167,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider invalidParameterKeyTypeProvider
+	 * @covers Wikimedia\Assert\ParameterKeyTypeException
 	 */
 	public function testParameterKeyType_fail( $type, $value ) {
 		$this->setExpectedException(
@@ -166,6 +177,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::parameterKeyType( $type, $value, 'test' );
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\ParameterAssertionException
+	 */
 	public function testGivenUnsupportedType_ParameterKeyTypeFails() {
 		$this->setExpectedException(
 			'Wikimedia\Assert\ParameterAssertionException',
@@ -204,6 +218,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider invalidParameterElementTypeProvider
+	 * @covers Wikimedia\Assert\ParameterElementTypeException
 	 */
 	public function testParameterElementType_fail( $type, $value ) {
 		try {
@@ -215,6 +230,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		}
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\ParameterTypeException
+	 */
 	public function testParameterElementType_bad() {
 		$this->setExpectedException( 'Wikimedia\Assert\ParameterTypeException' );
 		Assert::parameterElementType( 'string', 'foo', 'test' );
@@ -249,6 +267,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @dataProvider invalidNonEmptyStringProvider
+	 * @covers Wikimedia\Assert\ParameterTypeException
 	 */
 	public function testNonEmptyString_fail( $value ) {
 		$this->setExpectedException(
@@ -262,6 +281,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::invariant( true, 'test' );
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\InvariantException
+	 */
 	public function testInvariant_fail() {
 		$this->setExpectedException( 'Wikimedia\Assert\InvariantException' );
 		Assert::invariant( false, 'test' );
@@ -271,6 +293,9 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		Assert::postcondition( true, 'test' );
 	}
 
+	/**
+	 * @covers Wikimedia\Assert\PostconditionException
+	 */
 	public function testPostcondition_fail() {
 		$this->setExpectedException( 'Wikimedia\Assert\PostconditionException' );
 		Assert::postcondition( false, 'test' );

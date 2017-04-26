@@ -10,6 +10,7 @@ use stdClass;
 use Wikimedia\Assert\Assert;
 use Wikimedia\Assert\ParameterAssertionException;
 use Wikimedia\Assert\ParameterElementTypeException;
+use Wikimedia\Assert\ParameterKeyTypeException;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
@@ -170,11 +171,13 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	 * @covers Wikimedia\Assert\ParameterKeyTypeException
 	 */
 	public function testParameterKeyType_fail( $type, $value ) {
-		$this->setExpectedException(
-			'Wikimedia\Assert\ParameterKeyTypeException',
-			'Bad value for parameter test: all elements must have '
-		);
-		Assert::parameterKeyType( $type, $value, 'test' );
+		try {
+			Assert::parameterKeyType( $type, $value, 'test' );
+			$this->fail( 'Expected ParameterKeyTypeException' );
+		} catch ( ParameterKeyTypeException $ex ) {
+			$this->assertSame( $type, $ex->getType() );
+			$this->assertSame( 'test', $ex->getParameterName() );
+		}
 	}
 
 	/**

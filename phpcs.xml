@@ -1,8 +1,15 @@
 <?xml version="1.0"?>
 <ruleset>
-	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki"/>
+	<rule ref="vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.Commenting.FunctionComment.MissingParamComment" />
+	</rule>
+
+	<rule ref="MediaWiki.NamingConventions.LowerCamelFunctionsName">
+		<exclude-pattern>tests*Test*\.php</exclude-pattern>
+	</rule>
+
 	<file>.</file>
 	<arg name="extensions" value="php,php5,inc"/>
 	<arg name="encoding" value="utf8"/>
-	<exclude-pattern>vendor</exclude-pattern>
+	<exclude-pattern type="relative">^vendor/</exclude-pattern>
 </ruleset>

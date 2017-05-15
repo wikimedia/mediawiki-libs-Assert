@@ -1,5 +1,8 @@
 # Assert release notes
 
+## Version 0.3.1 (dev)
+* Raised required PHP version from 5.3 to 5.5.
+
 ## Version 0.3.0 (2016-11-09)
 * Added `Assert::parameterKeyType` and `ParameterKeyTypeException`
 * Added `Assert::nonEmptyString`

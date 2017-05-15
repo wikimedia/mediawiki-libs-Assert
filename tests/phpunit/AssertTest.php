@@ -52,29 +52,29 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function validParameterTypeProvider() {
-		return array(
-			'simple' => array( 'string', 'hello' ),
-			'boolean' => array( 'boolean', true ),
-			'integer' => array( 'integer', 1 ),
-			'double' => array( 'double', 1.0 ),
-			'object' => array( 'object', new stdClass() ),
-			'class' => array( 'RuntimeException', new RuntimeException() ),
-			'subclass' => array( 'Exception', new RuntimeException() ),
-			'stdClass' => array( 'stdClass', new stdClass() ),
-			'multi' => array( 'string|array|Closure', function() {
-			} ),
-			'null' => array( 'integer|null', null ),
+		return [
+			'simple' => [ 'string', 'hello' ],
+			'boolean' => [ 'boolean', true ],
+			'integer' => [ 'integer', 1 ],
+			'double' => [ 'double', 1.0 ],
+			'object' => [ 'object', new stdClass() ],
+			'class' => [ 'RuntimeException', new RuntimeException() ],
+			'subclass' => [ 'Exception', new RuntimeException() ],
+			'stdClass' => [ 'stdClass', new stdClass() ],
+			'multi' => [ 'string|array|Closure', function() {
+			} ],
+			'null' => [ 'integer|null', null ],
 
-			'callable' => array( 'null|callable', 'time' ),
-			'static callable' => array( 'callable', 'Wikimedia\Assert\Assert::parameterType' ),
-			'callable array' => array( 'callable', array( 'Wikimedia\Assert\Assert', 'parameterType' ) ),
-			'callable $this' => array( 'callable', array( $this, 'validParameterTypeProvider' ) ),
-			'Closure is callable' => array( 'callable', function() {
-			} ),
+			'callable' => [ 'null|callable', 'time' ],
+			'static callable' => [ 'callable', 'Wikimedia\Assert\Assert::parameterType' ],
+			'callable array' => [ 'callable', [ 'Wikimedia\Assert\Assert', 'parameterType' ] ],
+			'callable $this' => [ 'callable', [ $this, 'validParameterTypeProvider' ] ],
+			'Closure is callable' => [ 'callable', function() {
+			} ],
 
-			'Traversable' => array( 'Traversable', new ArrayObject() ),
-			'Traversable array' => array( 'Traversable', array() ),
-		);
+			'Traversable' => [ 'Traversable', new ArrayObject() ],
+			'Traversable array' => [ 'Traversable', [] ],
+		];
 	}
 
 	/**
@@ -85,31 +85,31 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function invalidParameterTypeProvider() {
-		return array(
-			'bool shortcut is not accepted' => array( 'bool', true ),
-			'int shortcut is not accepted' => array( 'int', 1 ),
-			'float alias is not accepted' => array( 'float', 1.0 ),
-			'callback alias is not accepted' => array( 'callback', 'time' ),
+		return [
+			'bool shortcut is not accepted' => [ 'bool', true ],
+			'int shortcut is not accepted' => [ 'int', 1 ],
+			'float alias is not accepted' => [ 'float', 1.0 ],
+			'callback alias is not accepted' => [ 'callback', 'time' ],
 
-			'simple' => array( 'string', 5 ),
-			'integer is not boolean' => array( 'boolean', 1 ),
-			'string is not boolean' => array( 'boolean', '0' ),
-			'boolean is not integer' => array( 'integer', true ),
-			'string is not integer' => array( 'integer', '0' ),
-			'double is not integer' => array( 'integer', 1.0 ),
-			'integer is not double' => array( 'double', 1 ),
-			'class' => array( 'RuntimeException', new LogicException() ),
-			'stdClass is no superclass' => array( 'stdClass', new LogicException() ),
-			'multi' => array( 'string|integer|Closure', array() ),
-			'null' => array( 'integer|string', null ),
+			'simple' => [ 'string', 5 ],
+			'integer is not boolean' => [ 'boolean', 1 ],
+			'string is not boolean' => [ 'boolean', '0' ],
+			'boolean is not integer' => [ 'integer', true ],
+			'string is not integer' => [ 'integer', '0' ],
+			'double is not integer' => [ 'integer', 1.0 ],
+			'integer is not double' => [ 'double', 1 ],
+			'class' => [ 'RuntimeException', new LogicException() ],
+			'stdClass is no superclass' => [ 'stdClass', new LogicException() ],
+			'multi' => [ 'string|integer|Closure', [] ],
+			'null' => [ 'integer|string', null ],
 
-			'callable' => array( 'null|callable', array() ),
-			'callable is no Closure' => array( 'Closure', 'time' ),
-			'object is not callable' => array( 'callable', new stdClass() ),
+			'callable' => [ 'null|callable', [] ],
+			'callable is no Closure' => [ 'Closure', 'time' ],
+			'object is not callable' => [ 'callable', new stdClass() ],
 
-			'object is not Traversable' => array( 'Traversable', new stdClass() ),
-			'Traversable is not Iterator' => array( 'Iterator', new ArrayObject() ),
-		);
+			'object is not Traversable' => [ 'Traversable', new stdClass() ],
+			'Traversable is not Iterator' => [ 'Iterator', new ArrayObject() ],
+		];
 	}
 
 	/**
@@ -135,19 +135,19 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function validParameterKeyTypeProvider() {
-		return array(
-			array( 'integer', array() ),
-			array( 'integer', array( 1 ) ),
-			array( 'integer', array( 1 => 1 ) ),
-			array( 'integer', array( 1.0 => 1 ) ),
-			array( 'integer', array( '0' => 1 ) ),
-			array( 'integer', array( false => 1 ) ),
-			array( 'string', array() ),
-			array( 'string', array( '' => 1 ) ),
-			array( 'string', array( '0.0' => 1 ) ),
-			array( 'string', array( 'string' => 1 ) ),
-			array( 'string', array( null => 1 ) ),
-		);
+		return [
+			[ 'integer', [] ],
+			[ 'integer', [ 1 ] ],
+			[ 'integer', [ 1 => 1 ] ],
+			[ 'integer', [ 1.0 => 1 ] ],
+			[ 'integer', [ '0' => 1 ] ],
+			[ 'integer', [ false => 1 ] ],
+			[ 'string', [] ],
+			[ 'string', [ '' => 1 ] ],
+			[ 'string', [ '0.0' => 1 ] ],
+			[ 'string', [ 'string' => 1 ] ],
+			[ 'string', [ null => 1 ] ],
+		];
 	}
 
 	/**
@@ -158,12 +158,12 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function invalidParameterKeyTypeProvider() {
-		return array(
-			array( 'integer', array( 0, 'string' => 1 ) ),
-			array( 'integer', array( 'string' => 0, 1 ) ),
-			array( 'string', array( 0, 'string' => 1 ) ),
-			array( 'string', array( 'string' => 0, 1 ) ),
-		);
+		return [
+			[ 'integer', [ 0, 'string' => 1 ] ],
+			[ 'integer', [ 'string' => 0, 1 ] ],
+			[ 'string', [ 0, 'string' => 1 ] ],
+			[ 'string', [ 'string' => 0, 1 ] ],
+		];
 	}
 
 	/**
@@ -188,18 +188,18 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'Wikimedia\Assert\ParameterAssertionException',
 			'Bad value for parameter type: must be "integer" or "string"'
 		);
-		Assert::parameterKeyType( 'integer|string', array(), 'test' );
+		Assert::parameterKeyType( 'integer|string', [], 'test' );
 	}
 
 	public function validParameterElementTypeProvider() {
-		return array(
-			'empty' => array( 'string', array() ),
-			'simple' => array( 'string', array( 'hello', 'world' ) ),
-			'class' => array( 'RuntimeException', array( new RuntimeException() ) ),
-			'multi' => array( 'string|array|Closure', array( array(), function() {
-			} ) ),
-			'null' => array( 'integer|null', array( null, 3, null ) ),
-		);
+		return [
+			'empty' => [ 'string', [] ],
+			'simple' => [ 'string', [ 'hello', 'world' ] ],
+			'class' => [ 'RuntimeException', [ new RuntimeException() ] ],
+			'multi' => [ 'string|array|Closure', [ [], function() {
+			} ] ],
+			'null' => [ 'integer|null', [ null, 3, null ] ],
+		];
 	}
 
 	/**
@@ -210,13 +210,13 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function invalidParameterElementTypeProvider() {
-		return array(
-			'simple' => array( 'string', array( 'hello', 5 ) ),
-			'class' => array( 'RuntimeException', array( new LogicException() ) ),
-			'multi' => array( 'string|array|Closure', array( array(), function() {
-			}, 5 ) ),
-			'null' => array( 'integer|string', array( null, 3, null ) ),
-		);
+		return [
+			'simple' => [ 'string', [ 'hello', 5 ] ],
+			'class' => [ 'RuntimeException', [ new LogicException() ] ],
+			'multi' => [ 'string|array|Closure', [ [], function() {
+			}, 5 ] ],
+			'null' => [ 'integer|string', [ null, 3, null ] ],
+		];
 	}
 
 	/**
@@ -242,13 +242,13 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function validNonEmptyStringProvider() {
-		return array(
-			array( '0' ),
-			array( '0.0' ),
-			array( ' ' ),
-			array( "\n" ),
-			array( 'test' ),
-		);
+		return [
+			[ '0' ],
+			[ '0.0' ],
+			[ ' ' ],
+			[ "\n" ],
+			[ 'test' ],
+		];
 	}
 
 	/**
@@ -259,13 +259,13 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 	}
 
 	function invalidNonEmptyStringProvider() {
-		return array(
-			array( null ),
-			array( false ),
-			array( 0 ),
-			array( 0.0 ),
-			array( '' ),
-		);
+		return [
+			[ null ],
+			[ false ],
+			[ 0 ],
+			[ 0.0 ],
+			[ '' ],
+		];
 	}
 
 	/**

@@ -18,7 +18,7 @@ use Wikimedia\Assert\ParameterTypeException;
  *
  * @license MIT
  * @author Daniel Kinzler
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  * @copyright Wikimedia Deutschland e.V.
  */
 class AssertTest extends PHPUnit_Framework_TestCase {

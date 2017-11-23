@@ -10,7 +10,7 @@ namespace Wikimedia\Assert;
  *
  * @license MIT
  * @author Daniel Kinzler
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  * @copyright Wikimedia Deutschland e.V.
  */
 class ParameterKeyTypeException extends ParameterAssertionException {

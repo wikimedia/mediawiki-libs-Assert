@@ -4,7 +4,6 @@ namespace Wikimedia\Assert\Test;
 
 use ArrayObject;
 use LogicException;
-use PHPUnit_Framework_TestCase;
 use RuntimeException;
 use stdClass;
 use Wikimedia\Assert\Assert;
@@ -21,7 +20,7 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Thiemo Kreuz
  * @copyright Wikimedia Deutschland e.V.
  */
-class AssertTest extends PHPUnit_Framework_TestCase {
+class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPrecondition_pass() {
 		Assert::precondition( true, 'test' );
@@ -61,7 +60,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'class' => [ 'RuntimeException', new RuntimeException() ],
 			'subclass' => [ 'Exception', new RuntimeException() ],
 			'stdClass' => [ 'stdClass', new stdClass() ],
-			'multi' => [ 'string|array|Closure', function() {
+			'multi' => [ 'string|array|Closure', function () {
 			} ],
 			'null' => [ 'integer|null', null ],
 
@@ -69,7 +68,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'static callable' => [ 'callable', 'Wikimedia\Assert\Assert::parameterType' ],
 			'callable array' => [ 'callable', [ 'Wikimedia\Assert\Assert', 'parameterType' ] ],
 			'callable $this' => [ 'callable', [ $this, 'validParameterTypeProvider' ] ],
-			'Closure is callable' => [ 'callable', function() {
+			'Closure is callable' => [ 'callable', function () {
 			} ],
 
 			'Traversable' => [ 'Traversable', new ArrayObject() ],
@@ -196,7 +195,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 			'empty' => [ 'string', [] ],
 			'simple' => [ 'string', [ 'hello', 'world' ] ],
 			'class' => [ 'RuntimeException', [ new RuntimeException() ] ],
-			'multi' => [ 'string|array|Closure', [ [], function() {
+			'multi' => [ 'string|array|Closure', [ [], function () {
 			} ] ],
 			'null' => [ 'integer|null', [ null, 3, null ] ],
 		];
@@ -213,7 +212,7 @@ class AssertTest extends PHPUnit_Framework_TestCase {
 		return [
 			'simple' => [ 'string', [ 'hello', 5 ] ],
 			'class' => [ 'RuntimeException', [ new LogicException() ] ],
-			'multi' => [ 'string|array|Closure', [ [], function() {
+			'multi' => [ 'string|array|Closure', [ [], function () {
 			}, 5 ] ],
 			'null' => [ 'integer|string', [ null, 3, null ] ],
 		];

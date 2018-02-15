@@ -1,7 +1,14 @@
 {
 	"name": "wikimedia/assert",
 	"description": "Provides runtime assertions",
-	"keywords": ["PHP", "QA", "assert", "assertions", "precondition", "postcondition"],
+	"keywords": [
+		"PHP",
+		"QA",
+		"assert",
+		"assertions",
+		"precondition",
+		"postcondition"
+	],
 	"homepage": "https://github.com/wikimedia/Assert",
 	"license": "MIT",
 	"authors": [
@@ -26,7 +33,7 @@
 		"php": ">=5.5.9"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "0.8.0",
+		"mediawiki/mediawiki-codesniffer": "16.0.0",
 		"phpunit/phpunit": "^4.8"
 	},
 	"scripts": {

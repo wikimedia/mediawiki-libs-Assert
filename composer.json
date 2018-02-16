@@ -34,7 +34,7 @@
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "16.0.0",
-		"phpunit/phpunit": "^4.8"
+		"phpunit/phpunit": "4.8.36"
 	},
 	"scripts": {
 		"test": [

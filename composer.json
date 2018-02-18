@@ -34,14 +34,19 @@
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "16.0.0",
-		"phpunit/phpunit": "4.8.36"
+		"phpunit/phpunit": "4.8.36",
+		"mediawiki/minus-x": "0.3.1"
 	},
 	"scripts": {
 		"test": [
 			"phpunit",
-			"phpcs -p -s"
+			"phpcs -p -s",
+			"minus-x check ."
 		],
-		"fix": "phpcbf",
+		"fix": [
+			"phpcbf",
+			"minus-x fix ."
+		],
 		"cover": "phpunit --coverage-html coverage/"
 	}
 }

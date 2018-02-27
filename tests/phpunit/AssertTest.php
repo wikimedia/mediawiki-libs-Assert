@@ -28,9 +28,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\PreconditionException
+	 * @expectedException Wikimedia\Assert\PreconditionException
 	 */
 	public function testPrecondition_fail() {
-		$this->setExpectedException( 'Wikimedia\Assert\PreconditionException' );
 		Assert::precondition( false, 'test' );
 	}
 
@@ -127,9 +127,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\AssertionException
+	 * @expectedException Wikimedia\Assert\AssertionException
 	 */
 	public function testParameterType_catch() {
-		$this->setExpectedException( 'Wikimedia\Assert\AssertionException' );
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 
@@ -181,12 +181,10 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\ParameterAssertionException
+	 * @expectedException Wikimedia\Assert\ParameterAssertionException
+	 * @expectedExceptionMessage Bad value for parameter type: must be "integer" or "string"
 	 */
 	public function testGivenUnsupportedType_ParameterKeyTypeFails() {
-		$this->setExpectedException(
-			'Wikimedia\Assert\ParameterAssertionException',
-			'Bad value for parameter type: must be "integer" or "string"'
-		);
 		Assert::parameterKeyType( 'integer|string', [], 'test' );
 	}
 
@@ -234,9 +232,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\ParameterTypeException
+	 * @expectedException Wikimedia\Assert\ParameterTypeException
 	 */
 	public function testParameterElementType_bad() {
-		$this->setExpectedException( 'Wikimedia\Assert\ParameterTypeException' );
 		Assert::parameterElementType( 'string', 'foo', 'test' );
 	}
 
@@ -270,12 +268,10 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider invalidNonEmptyStringProvider
 	 * @covers Wikimedia\Assert\ParameterTypeException
+	 * @expectedException Wikimedia\Assert\ParameterTypeException
+	 * @expectedExceptionMessage Bad value for parameter test: must be a non-empty string
 	 */
 	public function testNonEmptyString_fail( $value ) {
-		$this->setExpectedException(
-			'Wikimedia\Assert\ParameterTypeException',
-			'Bad value for parameter test: must be a non-empty string'
-		);
 		Assert::nonEmptyString( $value, 'test' );
 	}
 
@@ -285,9 +281,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\InvariantException
+	 * @expectedException Wikimedia\Assert\InvariantException
 	 */
 	public function testInvariant_fail() {
-		$this->setExpectedException( 'Wikimedia\Assert\InvariantException' );
 		Assert::invariant( false, 'test' );
 	}
 
@@ -297,9 +293,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers Wikimedia\Assert\PostconditionException
+	 * @expectedException Wikimedia\Assert\PostconditionException
 	 */
 	public function testPostcondition_fail() {
-		$this->setExpectedException( 'Wikimedia\Assert\PostconditionException' );
 		Assert::postcondition( false, 'test' );
 	}
 

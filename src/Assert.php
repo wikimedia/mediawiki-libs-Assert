@@ -199,7 +199,7 @@ class Assert {
 	 *
 	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
 	 * Note however that it should not be used in performance hotspots, since evaluating
-	 * $condition and calling postcondition() costs time.
+	 * $condition and calling invariant() costs time.
 	 *
 	 * @since 0.1.0
 	 *

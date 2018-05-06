@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
 		<exclude name="Squiz.Scope.MethodScope.Missing" />
@@ -9,7 +9,9 @@
 	</rule>
 
 	<file>.</file>
-	<arg name="extensions" value="php,php5,inc"/>
-	<arg name="encoding" value="utf8"/>
-	<exclude-pattern type="relative">^vendor/</exclude-pattern>
+	<arg name="encoding" value="UTF-8"/>
+	<arg name="extensions" value="php"/>
+	<exclude-pattern>coverage</exclude-pattern>
+	<exclude-pattern>vendor</exclude-pattern>
+	<exclude-pattern>doc/html</exclude-pattern>
 </ruleset>

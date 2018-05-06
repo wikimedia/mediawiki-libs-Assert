@@ -1,10 +1,15 @@
+sudo: false
 language: php
 php:
-  - 5.5
-  - 5.6
-  - 7.0
-  - 7.1
-  - hhvm
+  - "5.5"
+  - "5.6"
+  - "7.0"
+  - "7.1"
+  - "7.2"
+  - "hhvm"
+env:
+  global:
+    - COMPOSER_DISABLE_XDEBUG_WARN=1
 install:
   - composer install
 script:
@@ -12,5 +17,3 @@ script:
 cache:
   directories:
     - $HOME/.composer/cache
-
-sudo: false

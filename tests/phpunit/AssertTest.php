@@ -62,11 +62,13 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'class' => [ 'RuntimeException', new RuntimeException() ],
 			'subclass' => [ 'Exception', new RuntimeException() ],
 			'stdClass' => [ 'stdClass', new stdClass() ],
-			'multi' => [ 'string|array|Closure', function () {
+			'multi' => [ [ 'string', 'array', 'Closure' ], function () {
 			} ],
-			'null' => [ 'integer|null', null ],
+			'multi (old)' => [ 'string|array|Closure', function () {
+			} ],
+			'null' => [ [ 'integer', 'null' ], null ],
 
-			'callable' => [ 'null|callable', 'time' ],
+			'callable' => [ [ 'null', 'callable' ], 'time' ],
 			'static callable' => [ 'callable', 'Wikimedia\Assert\Assert::parameterType' ],
 			'callable array' => [ 'callable', [ 'Wikimedia\Assert\Assert', 'parameterType' ] ],
 			'callable $this' => [ 'callable', [ $this, 'validParameterTypeProvider' ] ],

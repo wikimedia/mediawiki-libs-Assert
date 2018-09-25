@@ -84,9 +84,10 @@ class Assert {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $type The parameter's expected type. Can be the name of a native type or a
-	 *        class or interface. If multiple types are allowed, they can be given separated by
-	 *        a pipe character ("|").
+	 * @param string|string[] $type The parameter's expected type. Can be the name of a native type
+	 *        or a class or interface, or a list of such names.
+	 *        For compatibility with versions before 0.2.3, multiple types can also be given separated
+	 *        by pipe characters ("|").
 	 * @param mixed $value The parameter's actual value.
 	 * @param string $name The name of the parameter that was checked.
 	 *
@@ -94,8 +95,11 @@ class Assert {
 	 *         instance of) $type.
 	 */
 	public static function parameterType( $type, $value, $name ) {
-		if ( !self::hasType( $value, explode( '|', $type ) ) ) {
-			throw new ParameterTypeException( $name, $type );
+		if ( is_string( $type ) ) {
+			$type = explode( '|', $type );
+		}
+		if ( !self::hasType( $value, $type ) ) {
+			throw new ParameterTypeException( $name, implode( '|', $type ) );
 		}
 	}
 

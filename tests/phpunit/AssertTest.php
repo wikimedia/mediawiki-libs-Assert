@@ -24,6 +24,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPrecondition_pass() {
 		Assert::precondition( true, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	/**
@@ -36,6 +37,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	public function testParameter_pass() {
 		Assert::parameter( true, 'foo', 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	/**
@@ -81,6 +83,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testParameterType_pass( $type, $value ) {
 		Assert::parameterType( $type, $value, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function invalidParameterTypeProvider() {
@@ -154,6 +157,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testParameterKeyType_pass( $type, $value ) {
 		Assert::parameterKeyType( $type, $value, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function invalidParameterKeyTypeProvider() {
@@ -204,6 +208,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testParameterElementType_pass( $type, $value ) {
 		Assert::parameterElementType( $type, $value, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	public function invalidParameterElementTypeProvider() {
@@ -253,6 +258,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 */
 	public function testNonEmptyString_pass( $value ) {
 		Assert::nonEmptyString( $value, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	function invalidNonEmptyStringProvider() {
@@ -277,6 +283,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	public function testInvariant_pass() {
 		Assert::invariant( true, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	/**
@@ -289,6 +296,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 
 	public function testPostcondition_pass() {
 		Assert::postcondition( true, 'test' );
+		$this->addToAssertionCount( 1 );
 	}
 
 	/**

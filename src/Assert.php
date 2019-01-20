@@ -86,7 +86,7 @@ class Assert {
 	 *
 	 * @param string|string[] $type The parameter's expected type. Can be the name of a native type
 	 *        or a class or interface, or a list of such names.
-	 *        For compatibility with versions before 0.2.3, multiple types can also be given separated
+	 *        For compatibility with versions before 0.4.0, multiple types can also be given separated
 	 *        by pipe characters ("|").
 	 * @param mixed $value The parameter's actual value.
 	 * @param string $name The name of the parameter that was checked.

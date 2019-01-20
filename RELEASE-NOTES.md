@@ -1,7 +1,11 @@
 # Assert release notes
 
-## Version 0.4.0 (dev)
+## Version 0.4.1 (dev)
+
+## Version 0.4.0 (2019-01-21)
 * Raised required PHP version from 5.3 to 7.0/HHVM
+* Multiple types should be provided as arrays, e.g. `[ 'int', 'bool' ]`. The previous `'int|bool'`
+  notation is still supported, but discouraged.
 
 ## Version 0.3.0 (2016-11-09)
 * Added `Assert::parameterKeyType` and `ParameterKeyTypeException`

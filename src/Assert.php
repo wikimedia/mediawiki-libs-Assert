@@ -42,6 +42,7 @@ class Assert {
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
 	 * @throws PreconditionException if $condition is not true.
+	 * @phan-assert-true-condition $condition
 	 */
 	public static function precondition( $condition, $description ) {
 		if ( !$condition ) {
@@ -64,6 +65,7 @@ class Assert {
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
 	 * @throws ParameterAssertionException if $condition is not true.
+	 * @phan-assert-true-condition $condition
 	 */
 	public static function parameter( $condition, $name, $description ) {
 		if ( !$condition ) {
@@ -190,6 +192,7 @@ class Assert {
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
 	 * @throws PostconditionException
+	 * @phan-assert-true-condition $condition
 	 */
 	public static function postcondition( $condition, $description ) {
 		if ( !$condition ) {
@@ -211,6 +214,7 @@ class Assert {
 	 * @param string $description The message to include in the exception if the condition fails.
 	 *
 	 * @throws InvariantException
+	 * @phan-assert-true-condition $condition
 	 */
 	public static function invariant( $condition, $description ) {
 		if ( !$condition ) {

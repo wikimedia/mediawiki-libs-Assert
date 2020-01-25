@@ -7,7 +7,6 @@ use LogicException;
 use RuntimeException;
 use stdClass;
 use Wikimedia\Assert\Assert;
-use Wikimedia\Assert\AssertionException;
 use Wikimedia\Assert\InvariantException;
 use Wikimedia\Assert\ParameterAssertionException;
 use Wikimedia\Assert\ParameterElementTypeException;
@@ -135,10 +134,10 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	}
 
 	/**
-	 * @covers \Wikimedia\Assert\AssertionException
+	 * @covers \Wikimedia\Assert\ParameterAssertionException
 	 */
 	public function testParameterType_catch() {
-		$this->expectException( AssertionException::class );
+		$this->expectException( ParameterAssertionException::class );
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 

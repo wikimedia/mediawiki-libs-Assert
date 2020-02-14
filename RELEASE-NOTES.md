@@ -2,6 +2,8 @@
 
 ## Version 0.5.0 (dev)
 * Raised required PHP version from 7.0 to 7.2
+* Passing multiple types as an array (instead of pipe-separated strings) is now
+  supported in `Assert::parameterElementType` as well.
 
 ## Version 0.4.0 (2019-01-21)
 * Raised required PHP version from 5.3 to 7.0/HHVM

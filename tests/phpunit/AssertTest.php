@@ -202,7 +202,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'empty' => [ 'string', [] ],
 			'simple' => [ 'string', [ 'hello', 'world' ] ],
 			'class' => [ 'RuntimeException', [ new RuntimeException() ] ],
-			'multi' => [ 'string|array|Closure', [ [], function () {
+			'multi' => [ 'string|array|Closure', [ [], 'x', function () {
+			} ] ],
+			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], 'x', function () {
 			} ] ],
 			'null' => [ 'integer|null', [ null, 3, null ] ],
 		];
@@ -222,6 +224,8 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'class' => [ 'RuntimeException', [ new LogicException() ] ],
 			'multi' => [ 'string|array|Closure', [ [], function () {
 			}, 5 ] ],
+			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], function () {
+			}, 5 ], 'string|array|Closure' ],
 			'null' => [ 'integer|string', [ null, 3, null ] ],
 		];
 	}
@@ -230,12 +234,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidParameterElementTypeProvider
 	 * @covers \Wikimedia\Assert\ParameterElementTypeException
 	 */
-	public function testParameterElementType_fail( $type, $value ) {
+	public function testParameterElementType_fail( $type, $value, $typeInException = null ) {
 		try {
 			Assert::parameterElementType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterElementTypeException' );
 		} catch ( ParameterElementTypeException $ex ) {
-			$this->assertSame( $type, $ex->getElementType() );
+			$this->assertSame( $typeInException ?: $type, $ex->getElementType() );
 			$this->assertSame( 'test', $ex->getParameterName() );
 		}
 	}

@@ -74,19 +74,19 @@ class Assert {
 	}
 
 	/**
-	 * Checks an parameter's type, that is, throws a InvalidArgumentException if $condition is false.
-	 * This is really a special case of Assert::precondition().
+	 * Checks an parameter's type, that is, throws a InvalidArgumentException if $value is
+	 * not of $type. This is really a special case of Assert::precondition().
 	 *
 	 * @note This is intended for checking parameters in constructors and setters.
 	 * Checking parameters in every function call is not recommended, since it may have a
 	 * negative impact on performance.
 	 *
 	 * @note If possible, type hints should be used instead of calling this function.
-	 * It is intended for cases where type hints to not work, e.g. for checking primitive types.
+	 * It is intended for cases where type hints to not work, e.g. for checking union types.
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string|string[] $type The parameter's expected type. Can be the name of a native type
+	 * @param string|string[] $types The parameter's expected type. Can be the name of a native type
 	 *        or a class or interface, or a list of such names.
 	 *        For compatibility with versions before 0.4.0, multiple types can also be given separated
 	 *        by pipe characters ("|").
@@ -95,13 +95,14 @@ class Assert {
 	 *
 	 * @throws ParameterTypeException if $value is not of type (or, for objects, is not an
 	 *         instance of) $type.
+	 *
 	 */
-	public static function parameterType( $type, $value, $name ) {
-		if ( is_string( $type ) ) {
-			$type = explode( '|', $type );
+	public static function parameterType( $types, $value, $name ) {
+		if ( is_string( $types ) ) {
+			$types = explode( '|', $types );
 		}
-		if ( !self::hasType( $value, $type ) ) {
-			throw new ParameterTypeException( $name, implode( '|', $type ) );
+		if ( !self::hasType( $value, $types ) ) {
+			throw new ParameterTypeException( $name, implode( '|', $types ) );
 		}
 	}
 
@@ -132,7 +133,7 @@ class Assert {
 
 	/**
 	 * Checks the type of all elements of an parameter, assuming the parameter is an array,
-	 * that is, throws a ParameterElementTypeException if $value
+	 * that is, throws a ParameterElementTypeException if any elements in $value are not of $type.
 	 *
 	 * @note This is intended for checking parameters in constructors and setters.
 	 * Checking parameters in every function call is not recommended, since it may have a
@@ -140,9 +141,9 @@ class Assert {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @param string $type The elements' expected type. Can be the name of a native type or a
-	 *        class or interface. If multiple types are allowed, they can be given separated by
-	 *        a pipe character ("|").
+	 * @param string|string[] $types The elements' expected type. Can be the name of a native type
+	 *        or a class or interface. Multiple types can be given in an array (or a string separated
+	 *        by a pipe character ("|"), for compatibility with versions before 5.0).
 	 * @param array $value The parameter's actual value. If this is not an array,
 	 *        a ParameterTypeException is raised.
 	 * @param string $name The name of the parameter that was checked.
@@ -150,15 +151,17 @@ class Assert {
 	 * @throws ParameterTypeException If $value is not an array.
 	 * @throws ParameterElementTypeException If an element of $value  is not of type
 	 *         (or, for objects, is not an instance of) $type.
+	 *
 	 */
-	public static function parameterElementType( $type, $value, $name ) {
+	public static function parameterElementType( $types, $value, $name ) {
 		self::parameterType( 'array', $value, $name );
-
-		$allowedTypes = explode( '|', $type );
+		if ( is_string( $types ) ) {
+			$types = explode( '|', $types );
+		}
 
 		foreach ( $value as $element ) {
-			if ( !self::hasType( $element, $allowedTypes ) ) {
-				throw new ParameterElementTypeException( $name, $type );
+			if ( !self::hasType( $element, $types ) ) {
+				throw new ParameterElementTypeException( $name, implode( '|', $types ) );
 			}
 		}
 	}

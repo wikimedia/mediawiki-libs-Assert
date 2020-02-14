@@ -1,5 +1,4 @@
 [![Build Status](https://secure.travis-ci.org/wikimedia/Assert.svg)](https://travis-ci.org/wikimedia/Assert)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/wikimedia/Assert/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/wikimedia/Assert/?branch=master)
 
 This package provides an alternative to PHP's `assert()` that allows for an simple and reliable way
 to check preconditions and postconditions in PHP code. It was proposed [as a MediaWiki RFC](https://www.mediawiki.org/wiki/Requests_for_comment/Assert),

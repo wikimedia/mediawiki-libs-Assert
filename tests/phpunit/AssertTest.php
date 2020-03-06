@@ -14,6 +14,7 @@ use Wikimedia\Assert\ParameterKeyTypeException;
 use Wikimedia\Assert\ParameterTypeException;
 use Wikimedia\Assert\PostconditionException;
 use Wikimedia\Assert\PreconditionException;
+use Wikimedia\Assert\UnreachableException;
 
 /**
  * @covers \Wikimedia\Assert\Assert
@@ -301,6 +302,14 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	public function testInvariant_fail() {
 		$this->expectException( InvariantException::class );
 		Assert::invariant( false, 'test' );
+	}
+
+	/**
+	 * @covers \Wikimedia\Assert\UnreachableException
+	 */
+	public function testUnreachable_fail() {
+		$this->expectException( UnreachableException::class );
+		throw new UnreachableException( 'should always fail' );
 	}
 
 	public function testPostcondition_pass() {

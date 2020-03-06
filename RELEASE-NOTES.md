@@ -1,6 +1,9 @@
 # Assert release notes
 
 ## Version 0.5.1 (dev)
+* Added `UnreachableException` to indicate unreachable code paths, as the
+  phan hints added in 0.5.0 prevent using a constant false `$condition` in
+  `Assert::invariant()` for this purpose.
 
 ## Version 0.5.0 (2020-02-13)
 * Raised required PHP version from 7.0 to 7.2

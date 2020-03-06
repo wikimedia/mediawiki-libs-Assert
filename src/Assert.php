@@ -207,6 +207,12 @@ class Assert {
 	 * Checks an invariant, that is, throws a InvariantException if $condition is false.
 	 * This is very similar Assert::postcondition() but is intended for use throughout the code.
 	 *
+	 * @note The $condition is expected to be falsifiable.  If you are trying
+	 * to indicate that a code path is unreachable, use
+	 * `throw new UnreachableException( 'why this code is unreachable' )`
+	 * instead of `Assert::invariant( false, '…' )`.  Code checking tools
+	 * will complain about the latter.
+	 *
 	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
 	 * Note however that it should not be used in performance hotspots, since evaluating
 	 * $condition and calling invariant() costs time.

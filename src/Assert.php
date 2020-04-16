@@ -173,6 +173,7 @@ class Assert {
 	 * @param string $name
 	 *
 	 * @throws ParameterTypeException if $value is not a non-empty string.
+	 * @phan-assert non-empty-string $value
 	 */
 	public static function nonEmptyString( $value, $name ) {
 		if ( !is_string( $value ) || $value === '' ) {

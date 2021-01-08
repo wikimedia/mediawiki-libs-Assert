@@ -59,7 +59,10 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	public function validParameterTypeProvider() {
 		return [
 			'simple' => [ 'string', 'hello' ],
-			'boolean' => [ 'boolean', true ],
+			'boolean (true)' => [ 'boolean', true ],
+			'boolean (false)' => [ 'boolean', false ],
+			'true' => [ 'true', true ],
+			'false' => [ 'false', false ],
 			'integer' => [ 'integer', 1 ],
 			'double' => [ 'double', 1.0 ],
 			'object' => [ 'object', new stdClass() ],
@@ -103,6 +106,8 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'integer is not boolean' => [ 'boolean', 1 ],
 			'string is not boolean' => [ 'boolean', '0' ],
 			'boolean is not integer' => [ 'integer', true ],
+			'false is not true' => [ 'true', false ],
+			'true is not false' => [ 'false', true ],
 			'string is not integer' => [ 'integer', '0' ],
 			'double is not integer' => [ 'integer', 1.0 ],
 			'integer is not double' => [ 'double', 1 ],

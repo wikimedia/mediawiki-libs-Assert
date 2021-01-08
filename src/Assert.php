@@ -258,6 +258,13 @@ class Assert {
 			return true;
 		}
 
+		if ( $value === false && in_array( 'false', $allowedTypes ) ) {
+			return true;
+		}
+		if ( $value === true && in_array( 'true', $allowedTypes ) ) {
+			return true;
+		}
+
 		return false;
 	}
 

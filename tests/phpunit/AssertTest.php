@@ -69,9 +69,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'class' => [ 'RuntimeException', new RuntimeException() ],
 			'subclass' => [ 'Exception', new RuntimeException() ],
 			'stdClass' => [ 'stdClass', new stdClass() ],
-			'multi' => [ [ 'string', 'array', 'Closure' ], function () {
+			'multi' => [ [ 'string', 'array', 'Closure' ], static function () {
 			} ],
-			'multi (old)' => [ 'string|array|Closure', function () {
+			'multi (old)' => [ 'string|array|Closure', static function () {
 			} ],
 			'null' => [ [ 'integer', 'null' ], null ],
 
@@ -79,7 +79,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'static callable' => [ 'callable', 'Wikimedia\Assert\Assert::parameterType' ],
 			'callable array' => [ 'callable', [ 'Wikimedia\Assert\Assert', 'parameterType' ] ],
 			'callable $this' => [ 'callable', [ $this, 'validParameterTypeProvider' ] ],
-			'Closure is callable' => [ 'callable', function () {
+			'Closure is callable' => [ 'callable', static function () {
 			} ],
 
 			'Traversable' => [ 'Traversable', new ArrayObject() ],
@@ -208,9 +208,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'empty' => [ 'string', [] ],
 			'simple' => [ 'string', [ 'hello', 'world' ] ],
 			'class' => [ 'RuntimeException', [ new RuntimeException() ] ],
-			'multi' => [ 'string|array|Closure', [ [], 'x', function () {
+			'multi' => [ 'string|array|Closure', [ [], 'x', static function () {
 			} ] ],
-			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], 'x', function () {
+			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], 'x', static function () {
 			} ] ],
 			'null' => [ 'integer|null', [ null, 3, null ] ],
 		];
@@ -228,9 +228,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		return [
 			'simple' => [ 'string', [ 'hello', 5 ] ],
 			'class' => [ 'RuntimeException', [ new LogicException() ] ],
-			'multi' => [ 'string|array|Closure', [ [], function () {
+			'multi' => [ 'string|array|Closure', [ [], static function () {
 			}, 5 ] ],
-			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], function () {
+			'multiArray' => [ [ 'string', 'array', 'Closure' ], [ [], static function () {
 			}, 5 ], 'string|array|Closure' ],
 			'null' => [ 'integer|string', [ null, 3, null ] ],
 		];

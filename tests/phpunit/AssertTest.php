@@ -330,4 +330,47 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		Assert::postcondition( false, 'test' );
 	}
 
+	public function provideInvalidExceptionArguments() {
+		yield 'ParameterTypeException' => [
+			ParameterTypeException::class,
+			[ 'string', null ],
+			'Bad value for parameter parameterType: must be a string'
+		];
+		yield 'ParameterAssertionException (parameterName)' => [
+			ParameterAssertionException::class,
+			[ null, 'string' ],
+			'Bad value for parameter parameterName: must be a string'
+		];
+		yield 'ParameterAssertionException (description)' => [
+			ParameterAssertionException::class,
+			[ 'string', null ],
+			'Bad value for parameter description: must be a string'
+		];
+		yield 'ParameterElementTypeException' => [
+			ParameterElementTypeException::class,
+			[ 'string', null ],
+			'Bad value for parameter elementType: must be a string'
+		];
+		yield 'ParameterKeyTypeException' => [
+			ParameterKeyTypeException::class,
+			[ 'string', null ],
+			'Bad value for parameter type: must be a string'
+		];
+	}
+
+	/**
+	 * @covers \Wikimedia\Assert\ParameterTypeException
+	 * @covers \Wikimedia\Assert\ParameterAssertionException
+	 * @covers \Wikimedia\Assert\ParameterElementTypeException
+	 * @covers \Wikimedia\Assert\ParameterKeyTypeException
+	 * @dataProvider provideInvalidExceptionArguments
+	 */
+	public function testInvalidExceptionArguments( $clazz, $args, $exceptionMsg ) {
+		// Testing that ParameterTypeException is thrown in the constructors
+		// of the exceptions if not given strings
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( $exceptionMsg );
+		new $clazz( ...$args );
+	}
+
 }

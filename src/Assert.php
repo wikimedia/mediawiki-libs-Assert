@@ -143,7 +143,7 @@ class Assert {
 	 *
 	 * @param string|string[] $types The elements' expected type. Can be the name of a native type
 	 *        or a class or interface. Multiple types can be given in an array (or a string separated
-	 *        by a pipe character ("|"), for compatibility with versions before 5.0).
+	 *        by a pipe character ("|"), for compatibility with versions before 0.5.0).
 	 * @param array $value The parameter's actual value. If this is not an array,
 	 *        a ParameterTypeException is raised.
 	 * @param string $name The name of the parameter that was checked.

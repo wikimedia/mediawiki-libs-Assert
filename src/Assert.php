@@ -44,7 +44,7 @@ class Assert {
 	 * @throws PreconditionException if $condition is not true.
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function precondition( $condition, $description ) {
+	public static function precondition( $condition, $description ): void {
 		if ( !$condition ) {
 			throw new PreconditionException( "Precondition failed: $description" );
 		}
@@ -67,7 +67,7 @@ class Assert {
 	 * @throws ParameterAssertionException if $condition is not true.
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function parameter( $condition, $name, $description ) {
+	public static function parameter( $condition, $name, $description ): void {
 		if ( !$condition ) {
 			throw new ParameterAssertionException( $name, $description );
 		}
@@ -97,7 +97,7 @@ class Assert {
 	 *         instance of) $type.
 	 *
 	 */
-	public static function parameterType( $types, $value, $name ) {
+	public static function parameterType( $types, $value, $name ): void {
 		if ( is_string( $types ) ) {
 			$types = explode( '|', $types );
 		}
@@ -117,7 +117,7 @@ class Assert {
 	 *
 	 * @throws ParameterTypeException if one of the keys in the array $value is not of type $type.
 	 */
-	public static function parameterKeyType( $type, $value, $name ) {
+	public static function parameterKeyType( $type, $value, $name ): void {
 		self::parameterType( 'array', $value, $name );
 
 		if ( $type !== 'integer' && $type !== 'string' ) {
@@ -153,7 +153,7 @@ class Assert {
 	 *         (or, for objects, is not an instance of) $type.
 	 *
 	 */
-	public static function parameterElementType( $types, $value, $name ) {
+	public static function parameterElementType( $types, $value, $name ): void {
 		self::parameterType( 'array', $value, $name );
 		if ( is_string( $types ) ) {
 			$types = explode( '|', $types );
@@ -175,7 +175,7 @@ class Assert {
 	 * @throws ParameterTypeException if $value is not a non-empty string.
 	 * @phan-assert non-empty-string $value
 	 */
-	public static function nonEmptyString( $value, $name ) {
+	public static function nonEmptyString( $value, $name ): void {
 		if ( !is_string( $value ) || $value === '' ) {
 			throw new ParameterTypeException( $name, 'non-empty string' );
 		}
@@ -198,7 +198,7 @@ class Assert {
 	 * @throws PostconditionException
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function postcondition( $condition, $description ) {
+	public static function postcondition( $condition, $description ): void {
 		if ( !$condition ) {
 			throw new PostconditionException( "Postcondition failed: $description" );
 		}
@@ -226,7 +226,7 @@ class Assert {
 	 * @throws InvariantException
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function invariant( $condition, $description ) {
+	public static function invariant( $condition, $description ): void {
 		if ( !$condition ) {
 			throw new InvariantException( "Invariant failed: $description" );
 		}
@@ -238,7 +238,7 @@ class Assert {
 	 *
 	 * @return bool
 	 */
-	private static function hasType( $value, array $allowedTypes ) {
+	private static function hasType( $value, array $allowedTypes ): bool {
 		// Apply strtolower because gettype returns "NULL" for null values.
 		$type = strtolower( gettype( $value ) );
 
@@ -274,7 +274,7 @@ class Assert {
 	 *
 	 * @return bool
 	 */
-	private static function isInstanceOf( $value, array $allowedTypes ) {
+	private static function isInstanceOf( $value, array $allowedTypes ): bool {
 		foreach ( $allowedTypes as $type ) {
 			if ( $value instanceof $type ) {
 				return true;

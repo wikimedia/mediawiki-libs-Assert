@@ -186,7 +186,7 @@ class Assert {
 	 * This is very similar Assert::invariant() but is intended for use only after a computation
 	 * is complete.
 	 *
-	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
+	 * @note This is intended for double checking in the implementation of complex algorithms.
 	 * Note however that it should not be used in performance hotspots, since evaluating
 	 * $condition and calling postcondition() costs time.
 	 *
@@ -214,7 +214,7 @@ class Assert {
 	 * instead of `Assert::invariant( false, '…' )`.  Code checking tools
 	 * will complain about the latter.
 	 *
-	 * @note This is intended for sanity-checks in the implementation of complex algorithms.
+	 * @note This is intended for double checking in the implementation of complex algorithms.
 	 * Note however that it should not be used in performance hotspots, since evaluating
 	 * $condition and calling invariant() costs time.
 	 *

@@ -1,6 +1,6 @@
 # Assert release notes
 
-## Version 0.5.1 (dev)
+## Version 0.5.1 (2021-12-21)
 * Added `UnreachableException` to indicate unreachable code paths, as the
   phan hints added in 0.5.0 prevent using a constant false `$condition` in
   `Assert::invariant()` for this purpose.

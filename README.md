@@ -31,12 +31,12 @@ Rationale
 -----------
 The background of this proposal is the recurring discussions about whether PHP's `assert()`
 can and should be used in MediaWiki code. Two relevant threads:
-* [Using PHP's assert in MediaWiki code](http://www.gossamer-threads.com/lists/wiki/wikitech/275737)
-* [Is assert() allowed?](http://www.gossamer-threads.com/lists/wiki/wikitech/378676)
+* [Using PHP's assert in MediaWiki code](https://lists.wikimedia.org/hyperkitty/list/wikitech-l@lists.wikimedia.org/thread/QPIUK62DQTG7M5X6YFMSAAVFG3KWLTX2/)
+* [Is assert() allowed?](https://lists.wikimedia.org/hyperkitty/list/wikitech-l@lists.wikimedia.org/thread/2VJZQCIADFDKGVTIVKDOTJISPVMNWJAQ/)
 
 The outcome appears to be that
 * assertions are generally a good way to improve code quality
 * but PHP's ''assert()'' is broken by design
 
-Following a [suggestion by Tim Starling](http://www.gossamer-threads.com/lists/wiki/wikitech/378815#378815),
+Following a [suggestion by Tim Starling](https://lists.wikimedia.org/hyperkitty/list/wikitech-l@lists.wikimedia.org/message/TMWLEOYMG42ASPYFEVTQKRSXK77W26CW/),
 this package provides an alternative to PHP's built in `assert()`.

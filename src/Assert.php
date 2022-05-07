@@ -11,7 +11,7 @@ namespace Wikimedia\Assert;
  * if this class is to have a neat tool for assertions if and when they are needed.
  * It is not recommended to place assertions all over the code indiscriminately.
  *
- * For more information, see the the README file.
+ * For more information, see the README file.
  *
  * @since 0.1.0
  *

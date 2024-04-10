@@ -56,7 +56,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 
-	public function validParameterTypeProvider() {
+	public static function validParameterTypeProvider() {
 		return [
 			'simple' => [ 'string', 'hello' ],
 			'boolean (true)' => [ 'boolean', true ],
@@ -78,7 +78,6 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			'callable' => [ [ 'null', 'callable' ], 'time' ],
 			'static callable' => [ 'callable', 'Wikimedia\Assert\Assert::parameterType' ],
 			'callable array' => [ 'callable', [ 'Wikimedia\Assert\Assert', 'parameterType' ] ],
-			'callable $this' => [ 'callable', [ $this, 'validParameterTypeProvider' ] ],
 			'Closure is callable' => [ 'callable', static function () {
 			} ],
 
@@ -95,7 +94,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function invalidParameterTypeProvider() {
+	public static function invalidParameterTypeProvider() {
 		return [
 			'bool shortcut is not accepted' => [ 'bool', true ],
 			'int shortcut is not accepted' => [ 'int', 1 ],
@@ -147,7 +146,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 
-	public function validParameterKeyTypeProvider() {
+	public static function validParameterKeyTypeProvider() {
 		return [
 			[ 'integer', [] ],
 			[ 'integer', [ 1 ] ],
@@ -171,7 +170,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function invalidParameterKeyTypeProvider() {
+	public static function invalidParameterKeyTypeProvider() {
 		return [
 			[ 'integer', [ 0, 'string' => 1 ] ],
 			[ 'integer', [ 'string' => 0, 1 ] ],
@@ -203,7 +202,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		Assert::parameterKeyType( 'integer|string', [], 'test' );
 	}
 
-	public function validParameterElementTypeProvider() {
+	public static function validParameterElementTypeProvider() {
 		return [
 			'empty' => [ 'string', [] ],
 			'simple' => [ 'string', [ 'hello', 'world' ] ],
@@ -224,7 +223,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function invalidParameterElementTypeProvider() {
+	public static function invalidParameterElementTypeProvider() {
 		return [
 			'simple' => [ 'string', [ 'hello', 5 ] ],
 			'class' => [ 'RuntimeException', [ new LogicException() ] ],
@@ -258,7 +257,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		Assert::parameterElementType( 'string', 'foo', 'test' );
 	}
 
-	public function validNonEmptyStringProvider() {
+	public static function validNonEmptyStringProvider() {
 		return [
 			[ '0' ],
 			[ '0.0' ],
@@ -276,7 +275,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function invalidNonEmptyStringProvider() {
+	public static function invalidNonEmptyStringProvider() {
 		return [
 			[ null ],
 			[ false ],
@@ -330,7 +329,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		Assert::postcondition( false, 'test' );
 	}
 
-	public function provideInvalidExceptionArguments() {
+	public static function provideInvalidExceptionArguments() {
 		yield 'ParameterTypeException' => [
 			ParameterTypeException::class,
 			[ 'string', null ],

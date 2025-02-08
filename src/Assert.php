@@ -118,7 +118,7 @@ class Assert {
 	 * @throws ParameterTypeException if one of the keys in the array $value is not of type $type.
 	 */
 	public static function parameterKeyType( $type, $value, $name ): void {
-		self::parameterType( 'array', $value, $name );
+		self::parameterType( [ 'array' ], $value, $name );
 
 		if ( $type !== 'integer' && $type !== 'string' ) {
 			throw new ParameterAssertionException( 'type', 'must be "integer" or "string"' );
@@ -154,7 +154,7 @@ class Assert {
 	 *
 	 */
 	public static function parameterElementType( $types, $value, $name ): void {
-		self::parameterType( 'array', $value, $name );
+		self::parameterType( [ 'array' ], $value, $name );
 		if ( is_string( $types ) ) {
 			$types = explode( '|', $types );
 		}

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="MediaWiki.Commenting.FunctionComment.ObjectTypeHintParam" />
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+	<rule ref="MediaWiki.Commenting.FunctionComment.ObjectTypeHintParam">
+		<severity>0</severity>
 	</rule>
 	<file>.</file>
 	<arg name="extensions" value="php" />

@@ -95,7 +95,6 @@ class Assert {
 	 *
 	 * @throws ParameterTypeException if $value is not of type (or, for objects, is not an
 	 *         instance of) $type.
-	 *
 	 */
 	public static function parameterType( $types, $value, $name ): void {
 		if ( is_string( $types ) ) {
@@ -151,7 +150,6 @@ class Assert {
 	 * @throws ParameterTypeException If $value is not an array.
 	 * @throws ParameterElementTypeException If an element of $value  is not of type
 	 *         (or, for objects, is not an instance of) $type.
-	 *
 	 */
 	public static function parameterElementType( $types, $value, $name ): void {
 		self::parameterType( [ 'array' ], $value, $name );

@@ -158,7 +158,6 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 			[ 'string', [ '' => 1 ] ],
 			[ 'string', [ '0.0' => 1 ] ],
 			[ 'string', [ 'string' => 1 ] ],
-			[ 'string', [ null => 1 ] ],
 		];
 	}
 

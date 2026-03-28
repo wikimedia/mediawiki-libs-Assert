@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia\Assert\Test;
 
@@ -26,7 +27,7 @@ use Wikimedia\Assert\UnreachableException;
  */
 class AssertTest extends \PHPUnit\Framework\TestCase {
 
-	public function testPrecondition_pass() {
+	public function testPrecondition_pass(): void {
 		Assert::precondition( true, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
@@ -34,12 +35,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\PreconditionException
 	 */
-	public function testPrecondition_fail() {
+	public function testPrecondition_fail(): void {
 		$this->expectException( PreconditionException::class );
 		Assert::precondition( false, 'test' );
 	}
 
-	public function testParameter_pass() {
+	public function testParameter_pass(): void {
 		Assert::parameter( true, 'foo', 'test' );
 		$this->addToAssertionCount( 1 );
 	}
@@ -47,7 +48,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\ParameterAssertionException
 	 */
-	public function testParameter_fail() {
+	public function testParameter_fail(): void {
 		try {
 			Assert::parameter( false, 'test', 'testing' );
 			$this->fail( 'Expected ParameterAssertionException' );
@@ -56,7 +57,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 		}
 	}
 
-	public static function validParameterTypeProvider() {
+	public static function validParameterTypeProvider(): iterable {
 		return [
 			'simple' => [ 'string', 'hello' ],
 			'boolean (true)' => [ 'boolean', true ],
@@ -89,12 +90,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider validParameterTypeProvider
 	 */
-	public function testParameterType_pass( $type, $value ) {
+	public function testParameterType_pass( array|string $type, $value ): void {
 		Assert::parameterType( $type, $value, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
 
-	public static function invalidParameterTypeProvider() {
+	public static function invalidParameterTypeProvider(): iterable {
 		return [
 			'bool shortcut is not accepted' => [ 'bool', true ],
 			'int shortcut is not accepted' => [ 'int', 1 ],
@@ -128,7 +129,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidParameterTypeProvider
 	 * @covers \Wikimedia\Assert\ParameterTypeException
 	 */
-	public function testParameterType_fail( $type, $value ) {
+	public function testParameterType_fail( string $type, $value ): void {
 		try {
 			Assert::parameterType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterTypeException' );
@@ -141,12 +142,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\ParameterAssertionException
 	 */
-	public function testParameterType_catch() {
+	public function testParameterType_catch(): void {
 		$this->expectException( ParameterAssertionException::class );
 		Assert::parameterType( 'string', 17, 'test' );
 	}
 
-	public static function validParameterKeyTypeProvider() {
+	public static function validParameterKeyTypeProvider(): iterable {
 		return [
 			[ 'integer', [] ],
 			[ 'integer', [ 1 ] ],
@@ -164,12 +165,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider validParameterKeyTypeProvider
 	 */
-	public function testParameterKeyType_pass( $type, $value ) {
+	public function testParameterKeyType_pass( string $type, $value ): void {
 		Assert::parameterKeyType( $type, $value, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
 
-	public static function invalidParameterKeyTypeProvider() {
+	public static function invalidParameterKeyTypeProvider(): iterable {
 		return [
 			[ 'integer', [ 0, 'string' => 1 ] ],
 			[ 'integer', [ 'string' => 0, 1 ] ],
@@ -182,7 +183,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidParameterKeyTypeProvider
 	 * @covers \Wikimedia\Assert\ParameterKeyTypeException
 	 */
-	public function testParameterKeyType_fail( $type, $value ) {
+	public function testParameterKeyType_fail( string $type, $value ): void {
 		try {
 			Assert::parameterKeyType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterKeyTypeException' );
@@ -195,13 +196,13 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\ParameterAssertionException
 	 */
-	public function testGivenUnsupportedType_ParameterKeyTypeFails() {
+	public function testGivenUnsupportedType_ParameterKeyTypeFails(): void {
 		$this->expectException( ParameterAssertionException::class );
 		$this->expectExceptionMessage( 'Bad value for parameter type: must be "integer" or "string"' );
 		Assert::parameterKeyType( 'integer|string', [], 'test' );
 	}
 
-	public static function validParameterElementTypeProvider() {
+	public static function validParameterElementTypeProvider(): iterable {
 		return [
 			'empty' => [ 'string', [] ],
 			'simple' => [ 'string', [ 'hello', 'world' ] ],
@@ -217,12 +218,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider validParameterElementTypeProvider
 	 */
-	public function testParameterElementType_pass( $type, $value ) {
+	public function testParameterElementType_pass( array|string $type, $value ): void {
 		Assert::parameterElementType( $type, $value, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
 
-	public static function invalidParameterElementTypeProvider() {
+	public static function invalidParameterElementTypeProvider(): iterable {
 		return [
 			'simple' => [ 'string', [ 'hello', 5 ] ],
 			'class' => [ 'RuntimeException', [ new LogicException() ] ],
@@ -238,7 +239,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidParameterElementTypeProvider
 	 * @covers \Wikimedia\Assert\ParameterElementTypeException
 	 */
-	public function testParameterElementType_fail( $type, $value, $typeInException = null ) {
+	public function testParameterElementType_fail(
+		array|string $type, $value, ?string $typeInException = null
+	): void {
 		try {
 			Assert::parameterElementType( $type, $value, 'test' );
 			$this->fail( 'Expected ParameterElementTypeException' );
@@ -251,12 +254,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\ParameterTypeException
 	 */
-	public function testParameterElementType_bad() {
+	public function testParameterElementType_bad(): void {
 		$this->expectException( ParameterTypeException::class );
 		Assert::parameterElementType( 'string', 'foo', 'test' );
 	}
 
-	public static function validNonEmptyStringProvider() {
+	public static function validNonEmptyStringProvider(): iterable {
 		return [
 			[ '0' ],
 			[ '0.0' ],
@@ -269,12 +272,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @dataProvider validNonEmptyStringProvider
 	 */
-	public function testNonEmptyString_pass( $value ) {
+	public function testNonEmptyString_pass( $value ): void {
 		Assert::nonEmptyString( $value, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
 
-	public static function invalidNonEmptyStringProvider() {
+	public static function invalidNonEmptyStringProvider(): iterable {
 		return [
 			[ null ],
 			[ false ],
@@ -288,13 +291,13 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	 * @dataProvider invalidNonEmptyStringProvider
 	 * @covers \Wikimedia\Assert\ParameterTypeException
 	 */
-	public function testNonEmptyString_fail( $value ) {
+	public function testNonEmptyString_fail( $value ): void {
 		$this->expectException( ParameterTypeException::class );
 		$this->expectExceptionMessage( 'Bad value for parameter test: must be a non-empty string' );
 		Assert::nonEmptyString( $value, 'test' );
 	}
 
-	public function testInvariant_pass() {
+	public function testInvariant_pass(): void {
 		Assert::invariant( true, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
@@ -302,7 +305,7 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\InvariantException
 	 */
-	public function testInvariant_fail() {
+	public function testInvariant_fail(): void {
 		$this->expectException( InvariantException::class );
 		Assert::invariant( false, 'test' );
 	}
@@ -310,12 +313,12 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\UnreachableException
 	 */
-	public function testUnreachable_fail() {
+	public function testUnreachable_fail(): void {
 		$this->expectException( UnreachableException::class );
 		throw new UnreachableException( 'should always fail' );
 	}
 
-	public function testPostcondition_pass() {
+	public function testPostcondition_pass(): void {
 		Assert::postcondition( true, 'test' );
 		$this->addToAssertionCount( 1 );
 	}
@@ -323,52 +326,9 @@ class AssertTest extends \PHPUnit\Framework\TestCase {
 	/**
 	 * @covers \Wikimedia\Assert\PostconditionException
 	 */
-	public function testPostcondition_fail() {
+	public function testPostcondition_fail(): void {
 		$this->expectException( PostconditionException::class );
 		Assert::postcondition( false, 'test' );
-	}
-
-	public static function provideInvalidExceptionArguments() {
-		yield 'ParameterTypeException' => [
-			ParameterTypeException::class,
-			[ 'string', null ],
-			'Bad value for parameter parameterType: must be a string'
-		];
-		yield 'ParameterAssertionException (parameterName)' => [
-			ParameterAssertionException::class,
-			[ null, 'string' ],
-			'Bad value for parameter parameterName: must be a string'
-		];
-		yield 'ParameterAssertionException (description)' => [
-			ParameterAssertionException::class,
-			[ 'string', null ],
-			'Bad value for parameter description: must be a string'
-		];
-		yield 'ParameterElementTypeException' => [
-			ParameterElementTypeException::class,
-			[ 'string', null ],
-			'Bad value for parameter elementType: must be a string'
-		];
-		yield 'ParameterKeyTypeException' => [
-			ParameterKeyTypeException::class,
-			[ 'string', null ],
-			'Bad value for parameter type: must be a string'
-		];
-	}
-
-	/**
-	 * @covers \Wikimedia\Assert\ParameterTypeException
-	 * @covers \Wikimedia\Assert\ParameterAssertionException
-	 * @covers \Wikimedia\Assert\ParameterElementTypeException
-	 * @covers \Wikimedia\Assert\ParameterKeyTypeException
-	 * @dataProvider provideInvalidExceptionArguments
-	 */
-	public function testInvalidExceptionArguments( $clazz, $args, $exceptionMsg ) {
-		// Testing that ParameterTypeException is thrown in the constructors
-		// of the exceptions if not given strings
-		$this->expectException( ParameterTypeException::class );
-		$this->expectExceptionMessage( $exceptionMsg );
-		new $clazz( ...$args );
 	}
 
 }

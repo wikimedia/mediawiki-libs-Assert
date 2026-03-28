@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia\Assert;
 
@@ -16,34 +17,17 @@ use InvalidArgumentException;
  */
 class ParameterAssertionException extends InvalidArgumentException implements AssertionException {
 
-	/**
-	 * @var string
-	 */
-	private $parameterName;
+	private string $parameterName;
 
 	/**
-	 * @param string $parameterName
-	 * @param string $description
-	 *
 	 * @throws ParameterTypeException
 	 */
-	public function __construct( $parameterName, $description ) {
-		if ( !is_string( $parameterName ) ) {
-			throw new ParameterTypeException( 'parameterName', 'string' );
-		}
-
-		if ( !is_string( $description ) ) {
-			throw new ParameterTypeException( 'description', 'string' );
-		}
-
+	public function __construct( string $parameterName, string $description ) {
 		parent::__construct( "Bad value for parameter $parameterName: $description" );
 
 		$this->parameterName = $parameterName;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getParameterName(): string {
 		return $this->parameterName;
 	}

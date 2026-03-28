@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia\Assert;
 
@@ -15,30 +16,17 @@ namespace Wikimedia\Assert;
  */
 class ParameterKeyTypeException extends ParameterAssertionException {
 
-	/**
-	 * @var string
-	 */
-	private $type;
+	private string $type;
 
 	/**
-	 * @param string $parameterName
-	 * @param string $type
-	 *
 	 * @throws ParameterTypeException
 	 */
-	public function __construct( $parameterName, $type ) {
-		if ( !is_string( $type ) ) {
-			throw new ParameterTypeException( 'type', 'string' );
-		}
-
+	public function __construct( string $parameterName, string $type ) {
 		parent::__construct( $parameterName, "all elements must have $type keys" );
 
 		$this->type = $type;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getType(): string {
 		return $this->type;
 	}

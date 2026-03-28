@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia\Assert;
 
@@ -44,7 +45,7 @@ class Assert {
 	 * @throws PreconditionException if $condition is not true.
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function precondition( $condition, $description ): void {
+	public static function precondition( $condition, string $description ): void {
 		if ( !$condition ) {
 			throw new PreconditionException( "Precondition failed: $description" );
 		}
@@ -67,7 +68,7 @@ class Assert {
 	 * @throws ParameterAssertionException if $condition is not true.
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function parameter( $condition, $name, $description ): void {
+	public static function parameter( $condition, string $name, string $description ): void {
 		if ( !$condition ) {
 			throw new ParameterAssertionException( $name, $description );
 		}
@@ -96,7 +97,7 @@ class Assert {
 	 * @throws ParameterTypeException if $value is not of type (or, for objects, is not an
 	 *         instance of) $type.
 	 */
-	public static function parameterType( $types, $value, $name ): void {
+	public static function parameterType( array|string $types, $value, string $name ): void {
 		if ( is_string( $types ) ) {
 			$types = explode( '|', $types );
 		}
@@ -116,7 +117,7 @@ class Assert {
 	 *
 	 * @throws ParameterTypeException if one of the keys in the array $value is not of type $type.
 	 */
-	public static function parameterKeyType( $type, $value, $name ): void {
+	public static function parameterKeyType( string $type, $value, string $name ): void {
 		self::parameterType( [ 'array' ], $value, $name );
 
 		if ( $type !== 'integer' && $type !== 'string' ) {
@@ -151,7 +152,7 @@ class Assert {
 	 * @throws ParameterElementTypeException If an element of $value  is not of type
 	 *         (or, for objects, is not an instance of) $type.
 	 */
-	public static function parameterElementType( $types, $value, $name ): void {
+	public static function parameterElementType( array|string $types, $value, string $name ): void {
 		self::parameterType( [ 'array' ], $value, $name );
 		if ( is_string( $types ) ) {
 			$types = explode( '|', $types );
@@ -173,7 +174,7 @@ class Assert {
 	 * @throws ParameterTypeException if $value is not a non-empty string.
 	 * @phan-assert non-empty-string $value
 	 */
-	public static function nonEmptyString( $value, $name ): void {
+	public static function nonEmptyString( $value, string $name ): void {
 		if ( !is_string( $value ) || $value === '' ) {
 			throw new ParameterTypeException( $name, 'non-empty string' );
 		}
@@ -196,7 +197,7 @@ class Assert {
 	 * @throws PostconditionException
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function postcondition( $condition, $description ): void {
+	public static function postcondition( $condition, string $description ): void {
 		if ( !$condition ) {
 			throw new PostconditionException( "Postcondition failed: $description" );
 		}
@@ -224,7 +225,7 @@ class Assert {
 	 * @throws InvariantException
 	 * @phan-assert-true-condition $condition
 	 */
-	public static function invariant( $condition, $description ): void {
+	public static function invariant( $condition, string $description ): void {
 		if ( !$condition ) {
 			throw new InvariantException( "Invariant failed: $description" );
 		}

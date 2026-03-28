@@ -1,4 +1,5 @@
 <?php
+declare( strict_types = 1 );
 
 namespace Wikimedia\Assert;
 
@@ -14,30 +15,17 @@ namespace Wikimedia\Assert;
  */
 class ParameterTypeException extends ParameterAssertionException {
 
-	/**
-	 * @var string
-	 */
-	private $parameterType;
+	private string $parameterType;
 
 	/**
-	 * @param string $parameterName
-	 * @param string $parameterType
-	 *
 	 * @throws ParameterTypeException
 	 */
-	public function __construct( $parameterName, $parameterType ) {
-		if ( !is_string( $parameterType ) ) {
-			throw new ParameterTypeException( 'parameterType', 'string' );
-		}
-
+	public function __construct( string $parameterName, string $parameterType ) {
 		parent::__construct( $parameterName, "must be a $parameterType" );
 
 		$this->parameterType = $parameterType;
 	}
 
-	/**
-	 * @return string
-	 */
 	public function getParameterType(): string {
 		return $this->parameterType;
 	}

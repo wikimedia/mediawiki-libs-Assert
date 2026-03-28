@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
+	<rule ref="Generic.PHP.RequireStrictTypes" />
 	<rule ref="MediaWiki.Commenting.FunctionComment.ObjectTypeHintParam">
 		<severity>0</severity>
 	</rule>

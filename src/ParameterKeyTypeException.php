@@ -18,9 +18,6 @@ class ParameterKeyTypeException extends ParameterAssertionException {
 
 	private string $type;
 
-	/**
-	 * @throws ParameterTypeException
-	 */
 	public function __construct( string $parameterName, string $type ) {
 		parent::__construct( $parameterName, "all elements must have $type keys" );
 

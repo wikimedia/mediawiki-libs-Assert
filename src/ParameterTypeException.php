@@ -17,9 +17,6 @@ class ParameterTypeException extends ParameterAssertionException {
 
 	private string $parameterType;
 
-	/**
-	 * @throws ParameterTypeException
-	 */
 	public function __construct( string $parameterName, string $parameterType ) {
 		parent::__construct( $parameterName, "must be a $parameterType" );
 

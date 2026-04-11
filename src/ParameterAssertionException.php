@@ -19,9 +19,6 @@ class ParameterAssertionException extends InvalidArgumentException implements As
 
 	private string $parameterName;
 
-	/**
-	 * @throws ParameterTypeException
-	 */
 	public function __construct( string $parameterName, string $description ) {
 		parent::__construct( "Bad value for parameter $parameterName: $description" );
 
